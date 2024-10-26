@@ -9,6 +9,7 @@ import { DayNightSliderComponent } from './day-night-slider/day-night-slider.com
 import { ApplianceChartComponent } from './appliance-chart/appliance-chart.component';
 import { LightbulbComponent } from './lightbulb/lightbulb.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
