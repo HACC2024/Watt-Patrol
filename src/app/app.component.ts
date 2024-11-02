@@ -7,4 +7,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'watt-patrol';
+  itemToggled = '';
+
+  onItemToggled(e: any) {
+    this.itemToggled = e;
+  }
 }

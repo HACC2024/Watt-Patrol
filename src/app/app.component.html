@@ -2,8 +2,8 @@
   Hello there
 
   <app-energy-meter></app-energy-meter>
-  <app-house></app-house>
+  <app-house (itemToggled)="onItemToggled($event)"></app-house>
   <app-day-night-slider></app-day-night-slider>
   <app-appliance-chart></app-appliance-chart>
-  <app-lightbulb></app-lightbulb>
+  <app-lightbulb [itemToggled] = "itemToggled"></app-lightbulb>
 </div>

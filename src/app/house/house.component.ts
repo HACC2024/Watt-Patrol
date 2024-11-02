@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { createInvalidObservableTypeError } from 'rxjs/internal/util/throwUnobservableError';
 
 
@@ -8,6 +8,8 @@ import { createInvalidObservableTypeError } from 'rxjs/internal/util/throwUnobse
   styleUrl: './house.component.scss',
 })
 export class HouseComponent {
+  @Output() itemToggled: EventEmitter<any> = new EventEmitter<any>();
+
   isACOn: boolean = false;
 
   toggleGlow(e: any) {
@@ -18,5 +20,11 @@ export class HouseComponent {
     glowElement.classList.toggle('active');
 
     if (element.id === "ac") this.isACOn = !this.isACOn;
+
+    if (glowElement.classList.contains("active")) {
+      this.itemToggled.emit(element.id);
+    } else {
+      this.itemToggled.emit('');
+    }
   }
 }
