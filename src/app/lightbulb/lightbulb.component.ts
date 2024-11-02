@@ -52,16 +52,21 @@ export class LightbulbComponent implements OnInit, OnChanges {
       'Front-load washers are often more energy-efficient.'
     ]
   } as { [key: string]: string[] };  
+
+  idleMsgs = [
+    'Turn on an appliance to see how much electricity it uses!', 
+    'You can tap the screen or use the switch!'
+  ];
   
-  msg = "Initial (Test)";
+  msg = '';
 
   ngOnChanges(): void {
-    if (this.info[this.itemToggled]) this.msgCycle();
+    if (this.info[this.itemToggled]) this.showApplianceMsg();
   }
 
   ngOnInit(): void {
     this.preloadSpeechBubble();
-    // this.cycleIdleMsg();
+    this.cycleIdleMsg();
   }
 
   /* Ensures speech bubble image is loaded when showing message. */
@@ -70,7 +75,7 @@ export class LightbulbComponent implements OnInit, OnChanges {
     img.src = 'assets/images/lightbulb/speech-bubble.png';
   }
 
-  msgCycle() {
+  showApplianceMsg() {
     const itemInfo = this.info[this.itemToggled];
     const appearTime = 10 * 1000;  // Changes how many seconds the message appears for.
 
@@ -85,16 +90,36 @@ export class LightbulbComponent implements OnInit, OnChanges {
     }
   }
 
-  // cycleIdleMsg() {
-  //   const timeCycle = 10 * 1000;
-  //   const timeBreak = 3 * 1000;
+  showIdleMsg() {
+    const appearTime = 10 * 1000;  // Changes how many seconds the message appears for.
 
-  //   setInterval(() => {
-  //     this.showMsg = true;
-  //     setTimeout(() => {
-  //       this.showMsg = false;
-  //     }, timeBreak); // Text will disappear after 2 seconds
-  //   }, timeCycle); // Cycle every 5 seconds (3s visible + 2s hidden)
-  // }
+    /* Only change message if not currently showing. */
+    if (!this.showMsg) {
+      this.msg = this.idleMsgs[Math.floor(Math.random() * this.idleMsgs.length)];
+      this.showMsg = true;
+
+      setTimeout(() => {
+        this.showMsg = false;
+      }, appearTime)
+    }
+  }
+
+  cycleIdleMsg() {
+    const timeCycle = 1 * 1000; 
+    const timeToShow = 30;  // Idle message shows after timeToShow seconds
+    var timer = 0;
+
+    setInterval(() => {
+      if (!this.showMsg) {
+        timer++;        
+      } else {
+        timer = 0;
+      }
+
+      if (timer >= timeToShow) {
+        this.showIdleMsg();
+      }
+    }, timeCycle); // Cycle every 1 second
+  }
 
 }
