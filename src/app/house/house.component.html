@@ -21,7 +21,8 @@
             </div>
             <div class="house-appliance-wrapper">
                 <img src="assets/images/house/ac_glow.png" alt="Glowing AC" id="ac" class="house-appliance glow">
-                <img src="assets/images/house/ac.png" alt="AC" class="house-appliance" id="ac" (click)="toggleGlow($event)">
+                <img *ngIf="isACOn" src="assets/images/house/ac.png" alt="AC On" id="ac" class="house-appliance" (click)="toggleGlow($event)">
+                <img *ngIf="!isACOn" src="assets/images/house/ac_off.png" alt="AC Off" class="house-appliance" id="ac" (click)="toggleGlow($event)">
             </div>
             <div class="house-appliance-wrapper">
                 <img src="assets/images/house/oven_glow.png" alt="Glowing Oven" id="oven" class="house-appliance glow">

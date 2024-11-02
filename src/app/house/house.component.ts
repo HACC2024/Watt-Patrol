@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { createInvalidObservableTypeError } from 'rxjs/internal/util/throwUnobservableError';
 
 
 @Component({
@@ -7,11 +8,17 @@ import { Component } from '@angular/core';
   styleUrl: './house.component.scss',
 })
 export class HouseComponent {
+  isACOn: boolean = false;
+
   toggleGlow(e: any) {
     const element = e.target;
     const glowElement = e.target.previousElementSibling;
 
     element.classList.toggle('active');
     glowElement.classList.toggle('active');
+    this.isACOn = !this.isACOn;
+
+    console.log("ele", element, "glow", glowElement)
+
   }
 }
