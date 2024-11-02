@@ -16,9 +16,7 @@ export class HouseComponent {
 
     element.classList.toggle('active');
     glowElement.classList.toggle('active');
-    this.isACOn = !this.isACOn;
 
-    console.log("ele", element, "glow", glowElement)
-
+    if (element.id === "ac") this.isACOn = !this.isACOn;
   }
 }
