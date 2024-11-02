@@ -7,14 +7,18 @@
     }
 
     .speech-bubble {
-        position: relative;
-        top: -150px;
+        position: absolute;
+        top: 0%;
         left: 71%;
         text-align: center;
         vertical-align: middle;
         align-items: center;
         display: flex;
         width: fit-content;
+
+        // #speech {
+        //     width: 95%;
+        // }
 
         .message {
             position: absolute;
