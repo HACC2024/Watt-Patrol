@@ -1,1 +1,9 @@
-<p>lightbulb works!</p>
+<div class="lightbulb-wrapper">
+    <div class="lightbulb">
+        <img src="assets/images/lightbulb/lightbulb.png" alt="Lightbulb Friend" id="lightbulb">
+    </div>
+    <div *ngIf="showMsg" class="speech-bubble">
+        <img src="assets/images/lightbulb/speech-bubble.png" alt="Speech Bubble" id="speech">
+        <p class="message">{{ msg }}</p>
+    </div>
+</div>
