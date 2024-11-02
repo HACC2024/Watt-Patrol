@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { createInvalidObservableTypeError } from 'rxjs/internal/util/throwUnobservableError';
 
 
@@ -7,10 +7,19 @@ import { createInvalidObservableTypeError } from 'rxjs/internal/util/throwUnobse
   templateUrl: './house.component.html',
   styleUrl: './house.component.scss',
 })
-export class HouseComponent {
+export class HouseComponent implements OnInit {
   @Output() itemToggled: EventEmitter<any> = new EventEmitter<any>();
 
   isACOn: boolean = false;
+
+  ngOnInit(): void {
+    this.preloadACOn();
+  }
+
+  preloadACOn() {
+    const img = new Image();
+    img.src = 'assets/images/house/ac.png';
+  }
 
   toggleGlow(e: any) {
     const element = e.target;
