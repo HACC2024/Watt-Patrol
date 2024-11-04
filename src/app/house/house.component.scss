@@ -1,8 +1,9 @@
 .house-wrapper {
     position: absolute;
-    top: 15%;
-    left: 10%;
+    top: 18%;
+    left: 12%;
 }
+
 
 .house-image {
     position: absolute;
@@ -33,47 +34,56 @@
 #solarpanel {
     position: absolute;
     cursor: pointer;
-    top: 38px;
-    left: 350px;
+    width: 170px;
+    top: 34px;
+    left: 305px;
 }
 
 .house-controls {
     #refrigerator {
-        top: 411px;
-        left: 173px;
+        top: 356px;
+        left: 149px;
+        width: 65px;
     }
     #oven {
-        top: 442px;
-        left: 117px;
+        top: 384px;
+        left: 104px;
+        width: 55px;
     }
     #washer {
-        top: 274px;
-        left: 313px;
+        top: 233px;
+        left: 268px;
+        width: 50px;
     }
     #dryer {
-        top: 274px;
-        left: 360px;
+        top: 233px;
+        left: 308px;
+        width: 50px;
     }
     #ac {
-        top: 168px;
-        left: 182px;
-        width: 120px;
+        top: 150px;
+        left: 152px;
+        width: 100px;
     }
     #tv {
-        top: 407px;
-        left: 258px;
+        top: 342px;
+        left: 215px;
+        width: 113px;
     }
     #light {
-        top: 162px;
-        left: 85px;
+        width: 42px;
+        top: 139px;
+        left: 77px;
     }
     #porch-light {
-        top: 348px;
+        top: 295px;
         left: -30px;
+        width: 45px;
     }
     #ceiling-fan {
-        top: 348px;
-        left: 396px;
+        top: 297px;
+        left: 335px;
+        width: 85px;
     }    
 }
 

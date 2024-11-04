@@ -61,7 +61,7 @@ export class LightbulbComponent implements OnInit, OnChanges {
   msg = '';
 
   ngOnChanges(): void {
-    if (this.info[this.itemToggled]) this.showApplianceMsg();
+    if (this.info[this.itemToggled.name]) this.showApplianceMsg();
   }
 
   ngOnInit(): void {
@@ -76,7 +76,7 @@ export class LightbulbComponent implements OnInit, OnChanges {
   }
 
   showApplianceMsg() {
-    const itemInfo = this.info[this.itemToggled];
+    const itemInfo = this.info[this.itemToggled.name];
     const appearTime = 10 * 1000;  // Changes how many seconds the message appears for.
 
     /* Only change message if not currently showing. */

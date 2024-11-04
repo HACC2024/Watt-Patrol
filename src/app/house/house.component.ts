@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { createInvalidObservableTypeError } from 'rxjs/internal/util/throwUnobservableError';
-
+import * as applianceEnergy from './applianceEnergy.json';
 
 @Component({
   selector: 'app-house',
@@ -9,6 +9,8 @@ import { createInvalidObservableTypeError } from 'rxjs/internal/util/throwUnobse
 })
 export class HouseComponent implements OnInit {
   @Output() itemToggled: EventEmitter<any> = new EventEmitter<any>();
+
+  private applianceEnergy: Object[] = (applianceEnergy as any).default;
 
   isACOn: boolean = false;
 
@@ -21,7 +23,7 @@ export class HouseComponent implements OnInit {
     img.src = 'assets/images/house/ac.png';
   }
 
-  toggleGlow(e: any) {
+  toggleAppliance(e: any) {
     const element = e.target;
     const glowElement = e.target.previousElementSibling;
 
@@ -31,9 +33,17 @@ export class HouseComponent implements OnInit {
     if (element.id === "ac") this.isACOn = !this.isACOn;
 
     if (glowElement.classList.contains("active")) {
-      this.itemToggled.emit(element.id);
+      const energyConsumption = this.getEnergyConsumption(element.id);
+      this.itemToggled.emit(energyConsumption);
+      console.log(energyConsumption);
     } else {
       this.itemToggled.emit('');
     }
+  }
+
+  // Gets a daily kWh consumption for the appliance toggled.
+  getEnergyConsumption(applianceId: string) {
+    // console.log(this.applianceEnergy);
+    return this.applianceEnergy.find((appliance: any) => appliance.name === applianceId);
   }
 }

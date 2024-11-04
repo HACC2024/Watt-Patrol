@@ -1,0 +1,38 @@
+[
+    {
+        "name": "refrigerator",
+        "daily-kWh": 1.5167 
+    },
+    {
+        "name": "washer",
+        "daily-kWh": 0.1722
+    },
+    {
+        "name": "dryer",
+        "daily-kWh": 2.1361 
+    },
+    {
+        "name": "ac",
+        "daily-kWh": 7.7000 
+    },
+    {
+        "name": "oven",
+        "daily-kWh": 0.9359
+    },
+    {
+        "name": "light",
+        "daily-kWh": 1.9389
+    },
+    {
+        "name": "tv",
+        "daily-kWh": 0.5750
+    },
+    {
+        "name": "ceiling-fan",
+        "daily-kWh": 0.0889
+    },
+    {
+        "name": "porch-light",
+        "daily-kWh": 0.6083
+    }
+]
