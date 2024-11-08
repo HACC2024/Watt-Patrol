@@ -1,0 +1,54 @@
+@font-face {
+  font-family: "digital";
+  src: url("../../assets/fonts/digital-7.ttf") format("truetype");
+  /* Optional: provide additional font formats for compatibility */
+  font-weight: normal;
+  font-style: normal;
+}
+#energy-meter {
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  left: 56%;
+  top: 60%;
+}
+
+#svg-path {
+  overflow: visible; /* Prevent clipping of the circle */
+}
+
+
+#heco-meter {
+  position: relative;
+  margin-left: -10px;
+}
+
+#heco-meter-img {
+  height: 200px;
+}
+
+#heco-meter-text {
+  font-size: 21px;
+  font-family: "digital";
+  color: #000;
+  margin: 0;
+  top: 78px;
+  left: 55px;
+  position: absolute;
+}
+
+#energy-unit {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 10px;
+  text-align: right;
+}
+
+.blink {
+  animation: blink-animation 1s steps(1) infinite;
+}
+
+@keyframes blink-animation {
+  50% {
+    visibility: hidden;
+  }
+}
