@@ -1,11 +1,12 @@
-import { Component, AfterViewInit, ElementRef, Renderer2, ViewChild } from '@angular/core';
+import { Component, AfterViewInit, ElementRef, Renderer2, ViewChild, Input, OnChanges, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-energy-meter',
   templateUrl: './energy-meter.component.html',
   styleUrl: './energy-meter.component.scss'
 })
-export class EnergyMeterComponent implements AfterViewInit {
+export class EnergyMeterComponent implements AfterViewInit, OnChanges {
+  @Input() itemToggled: any;
   public energyValue: number = 0;
   public energyValueString: string = this.energyValue.toString().padStart(6, '0') + '&nbsp;';
   private delay: number = 600; // 600ms delay between each circle
@@ -14,20 +15,47 @@ export class EnergyMeterComponent implements AfterViewInit {
   private svg!: SVGSVGElement;
   private path!: SVGPathElement;
   private pathLength!: number;
+  private itemsMap: Map<string, number>;
+
+
 
   @ViewChild('energy_value_span') energyValueSpan!: ElementRef;
 
-  constructor(private renderer: Renderer2, private elRef: ElementRef) {}
+  constructor(private renderer: Renderer2, private elRef: ElementRef) {
+    this.itemsMap = new Map<string, number>();
+  }
 
-  onButtonClick(): void {
+  renderEnergyValue(): void {
+    if (this.energyValue < 0) {
+      this.energyValue = 0;
+    }
     if (this.energyValue >= 999999) {
       this.energyValueString = '&nbsp;Error&nbsp;';
       this.renderer.addClass(this.energyValueSpan.nativeElement, 'blink');
     }
     else {
-      this.energyValue += 1;
-      this.energyValueString = this.energyValue.toString().padStart(6, '0') + '&nbsp;';
+      this.energyValueString = this.energyValue.toFixed(4).padStart(6, '0');
     }
+  }
+
+  ngOnChanges(): void {
+    if (this.itemToggled !== undefined) {
+      if (typeof this.itemToggled == "string") {
+        let itemKey = this.itemToggled.slice(0, -4);
+        if (this.itemsMap.has(itemKey)) {
+          this.energyValue -= this.itemsMap.get(itemKey) ?? 0;
+          this.itemsMap.delete(this.itemToggled);
+        }
+      }
+
+      if (typeof this.itemToggled == "object") {
+        this.itemsMap.set(this.itemToggled["name"], this.itemToggled["daily-kWh"]);
+        this.energyValue += this.itemToggled["daily-kWh"];
+      }
+
+      this.renderEnergyValue();
+    }
+
   }
 
   ngAfterViewInit(): void {
