@@ -1,1 +1,12 @@
-<p>energy-meter works!</p>
+<div id="energy-meter">
+    <div id="energy-wire">
+        <svg id="svg-path" width="100%" height="100%" viewBox="0 0 200 100" class="path" preserveAspectRatio="xMidYMid meet">
+            <path id="myPath" d="M 0 10 L 90 10 Q 100 10 100 20 L 100 40 Q 100 50 110 50 L 200 50" stroke="#000" fill="transparent" stroke-width="20px" />
+        </svg>
+    </div>
+    <div id="heco-meter">
+        <img src="assets/images/energy-meter/meter.png" alt="Energy Meter" id="heco-meter-img" />
+        <p id="heco-meter-text"><span id="energy-value" [innerHTML]="energyValueString" #energy_value_span></span><span id="energy-unit">kWh</span></p>
+    </div>
+</div>
+  
