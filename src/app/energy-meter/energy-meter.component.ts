@@ -9,23 +9,27 @@ export class EnergyMeterComponent implements AfterViewInit, OnChanges {
   @Input() itemToggled: any;
   public energyValue: number = 0;
   public energyValueString: string = this.energyValue.toString().padStart(6, '0') + '&nbsp;';
-  private delay: number = 600; // 600ms delay between each circle
-  private duration: number = 3000; // duration of each circle's animation along the path
+  private delay: number = 400; // 600ms delay between each circle
+  private duration: number = 4000; // duration of each circle's animation along the path
   private circleRadius: number = 10;
   private svg!: SVGSVGElement;
   private path!: SVGPathElement;
   private pathLength!: number;
   private itemsMap: Map<string, number>;
 
-
-
+  // scale delay and duration by the same factor to speed up or slow down the animation
+  // max kWh value is 15.6720 (maybe just sum the daily-kWh from applianceEnergy.json)
+  // min speed should be 4000 by 400
+  // max speed should be 1600 by 160
+  // scale factor should be between 0.4 and 1 relative to min speed
+  // Calculation for scale facor shoudl therefore be 0.4 + (0.6 * (maxValue - energyValue / maxValue))
   @ViewChild('energy_value_span') energyValueSpan!: ElementRef;
 
   constructor(private renderer: Renderer2, private elRef: ElementRef) {
     this.itemsMap = new Map<string, number>();
   }
 
-  renderEnergyValue(): void {
+  renderEnergyValue(): void { 
     if (this.energyValue < 0) {
       this.energyValue = 0;
     }
