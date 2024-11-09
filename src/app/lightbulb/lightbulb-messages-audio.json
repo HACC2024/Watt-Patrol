@@ -1,0 +1,144 @@
+{
+    "ac": [
+        {
+            "msg": "ACs use a lot of energy!",
+            "file": "ac0.mp3"
+        },
+        {
+            "msg": "Make sure to close all windows if the AC is on!",
+            "file": "ac1.mp3"
+        },
+        {
+            "msg": "Make sure to turn off the AC when you leave the house!",
+            "file": "ac2.mp3"
+        },
+        {
+            "msg": "Using fans with the AC can help cool the house better!",
+            "file": "ac3.mp3"
+        }
+    ],
+    "dryer": [
+        {
+            "msg": "Drying machines use a lot of energy!",
+            "file": "dryer0.mp3"
+        },
+        {
+            "msg": "Using low heat will use less energy.",
+            "file": "dryer1.mp3"
+        },
+        {
+            "msg": "Drying your clothes out in the sun does not use any electricity!",
+            "file": "dryer2.mp3"
+        }
+    ],
+    "ceiling-fan": [
+        {
+            "msg": "Fans use much less electricity than AC.",
+            "file": "ceiling-fan0.mp3"
+        },
+        {
+            "msg": "It is better to open the windows when you are using fans.",
+            "file": "ceiling-fan1.mp3"
+        }
+    ],
+    "refrigerator": [
+        {
+            "msg": "Refrigerators are always on to keep your food cold.",
+            "file": "refrigerator0.mp3"
+        },
+        {
+            "msg": "Try not to leave the refrigerator open for long.",
+            "file": "refrigerator1.mp3"
+        }
+    ],
+    "light": [
+        {
+            "msg": "LED lights use less energy.",
+            "file": "light0.mp3"
+        },
+        {
+            "msg": "LED lights can last for a long time.",
+            "file": "light1.mp3"
+        },
+        {
+            "msg": "Turn off the light when you leave the room to save energy!",
+            "file": "light2.mp3"
+        }
+    ],
+    "oven": [
+        {
+            "msg": "Electric ovens need a lot of energy.",
+            "file": "oven0.mp3"
+        },
+        {
+            "msg": "Ovens can be HOT. Do not use the oven without an adult around!",
+            "file": "oven1.mp3"
+        },
+        {
+            "msg": "Cooking on the stove uses less energy than cooking in the oven.",
+            "file": "oven2.mp3"
+        }
+    ],
+    "porch-light": [
+        {
+            "msg": "Motion-activated porch lights can save energy.",
+            "file": "porch-light0.mp3"
+        },
+        {
+            "msg": "Solar-powered porch lights are a great option to save energy!",
+            "file": "porch-light1.mp3"
+        }
+    ],
+    "solar-panel": [
+        {
+            "msg": "Solar panels turn sunlight into energy.",
+            "file": "solar-panel0.mp3"
+        },
+        {
+            "msg": "Solar panels work the best when it is sunny!",
+            "file": "solar-panel1.mp3"
+        },
+        {
+            "msg": "Solar energy is renewable energy.",
+            "file": "solar-panel2.mp3"
+        }
+    ],
+    "tv": [
+        {
+            "msg": "Old CRT TVs use more energy than new LED TVs.",
+            "file": "tv0.mp3"
+        },
+        {
+            "msg": "Turn off the TV when you are not watching to save energy!",
+            "file": "tv1.mp3"
+        },
+        {
+            "msg": "Smaller TVs use less energy than bigger TVs.",
+            "file": "tv2.mp3"
+        }
+    ],
+    "washer": [
+        {
+            "msg": "Washing machines need electricity too!",
+            "file": "washer0.mp3"
+        },
+        {
+            "msg": "Washing clothes with hot water uses more energy.",
+            "file": "washer1.mp3"
+        },
+        {
+            "msg": "Many washers have eco-friendly settings!",
+            "file": "washer2.mp3"
+        }
+    ],
+    "idle": [
+        {
+            "msg": "Turn on an appliance to see how much electricity it uses!",
+            "file": "idle0.mp3"
+        },
+        {
+            "msg": "You can tap the screen or use the switch!",
+            "file": "idle1.mp3"
+        }
+    ]
+}

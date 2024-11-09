@@ -34,5 +34,9 @@
     {
         "name": "porch-light",
         "daily-kWh": 0.6083
+    },
+    {
+        "name": "solar-panel",
+        "daily-kWh": -1.75
     }
 ]
