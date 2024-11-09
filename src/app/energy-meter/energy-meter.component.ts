@@ -1,4 +1,5 @@
-import { Component, AfterViewInit, ElementRef, Renderer2, ViewChild, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, AfterViewInit, ElementRef, Renderer2, ViewChild, Input, OnChanges } from '@angular/core';
+import * as applianceEnergy from '../house/applianceEnergy.json';
 
 @Component({
   selector: 'app-energy-meter',
@@ -9,37 +10,40 @@ export class EnergyMeterComponent implements AfterViewInit, OnChanges {
   @Input() itemToggled: any;
   public energyValue: number = 0;
   public energyValueString: string = this.energyValue.toString().padStart(6, '0') + '&nbsp;';
-  private delay: number = 400; // 600ms delay between each circle
-  private duration: number = 4000; // duration of each circle's animation along the path
-  private circleRadius: number = 10;
+  private delay: number = -1; // initial delay between each circle
+  private duration: number = 4000; // initial duration for each circle’s animation
+  private circleRadius: number = 8;
   private svg!: SVGSVGElement;
   private path!: SVGPathElement;
   private pathLength!: number;
-  private itemsMap: Map<string, number>;
+  private itemsMap: Map<string, number>
+  private lastTimestamp: number = 0; // initial delay between each circle
 
-  // scale delay and duration by the same factor to speed up or slow down the animation
-  // max kWh value is 15.6720 (maybe just sum the daily-kWh from applianceEnergy.json)
-  // min speed should be 4000 by 400
-  // max speed should be 1600 by 160
-  // scale factor should be between 0.4 and 1 relative to min speed
-  // Calculation for scale facor shoudl therefore be 0.4 + (0.6 * (maxValue - energyValue / maxValue))
+  private max_kWh: number = (applianceEnergy as any).default.reduce((acc: number, val: any) => acc + val["daily-kWh"], 0);
+  
   @ViewChild('energy_value_span') energyValueSpan!: ElementRef;
-
+  
   constructor(private renderer: Renderer2, private elRef: ElementRef) {
     this.itemsMap = new Map<string, number>();
   }
 
-  renderEnergyValue(): void { 
-    if (this.energyValue < 0) {
+  renderEnergyValue(): void {
+    if (this.energyValue <= 0) {
       this.energyValue = 0;
+      this.delay = -1;
+    } else {
+      let scaleFactor = 0.4 + (0.6 * (this.max_kWh - this.energyValue) / this.max_kWh);
+      this.delay = 800 * scaleFactor;
     }
-    if (this.energyValue >= 999999) {
-      this.energyValueString = '&nbsp;Error&nbsp;';
-      this.renderer.addClass(this.energyValueSpan.nativeElement, 'blink');
-    }
-    else {
-      this.energyValueString = this.energyValue.toFixed(4).padStart(6, '0');
-    }
+    /** 
+     * If we ever want to add blinking error effect for some cases:
+     * if (condition) {
+     *   this.energyValueString = '&nbsp;Error&nbsp;';
+     *   this.renderer.addClass(this.energyValueSpan.nativeElement, 'blink');
+     *   this.delay = -1;
+     * }
+    */
+    this.energyValueString = this.energyValue.toFixed(4).padStart(6, '0');
   }
 
   ngOnChanges(): void {
@@ -59,7 +63,6 @@ export class EnergyMeterComponent implements AfterViewInit, OnChanges {
 
       this.renderEnergyValue();
     }
-
   }
 
   ngAfterViewInit(): void {
@@ -67,13 +70,14 @@ export class EnergyMeterComponent implements AfterViewInit, OnChanges {
     this.path = this.elRef.nativeElement.querySelector('#myPath') as SVGPathElement;
     this.pathLength = this.path.getTotalLength();
 
-    this.startAnimationFlow();
+    requestAnimationFrame(() => this.startAnimationFlow(performance.now()));
   }
 
   private createCircle(): void {
     const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle") as SVGCircleElement;
     circle.setAttribute("r", this.circleRadius.toString());
-    circle.setAttribute("fill", "blue");
+    circle.setAttribute("fill", "rgba(0, 0, 0, 0)");
+    // circle.setAttribute("fill", "blue");
     this.svg.appendChild(circle);
 
     this.animateCircle(circle);
@@ -100,8 +104,12 @@ export class EnergyMeterComponent implements AfterViewInit, OnChanges {
     requestAnimationFrame(moveCircle);
   }
 
-  private startAnimationFlow(): void {
-    this.createCircle();
-    setInterval(() => this.createCircle(), this.delay);
+  private startAnimationFlow(timestamp: number): void {
+    if (this.delay != -1 && timestamp - this.lastTimestamp >= this.delay) {
+      this.createCircle();
+      this.lastTimestamp = timestamp;
+    }
+    
+    requestAnimationFrame(() => this.startAnimationFlow(performance.now()));
   }
 }
