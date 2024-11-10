@@ -15,9 +15,11 @@ export class EnergyMeterComponent implements AfterViewInit, OnChanges {
   private circleRadius: number = 8;
   private svg!: SVGSVGElement;
   private path!: SVGPathElement;
+  private other_path!: SVGPathElement;
   private pathLength!: number;
   private itemsMap: Map<string, number>
   private lastTimestamp: number = 0; // initial delay between each circle
+  private lastDirection: number = 1; // initial direction of the last circle 1 = forward, -1 = backward
 
   private max_kWh: number = (applianceEnergy as any).default.reduce((acc: number, val: any) => acc + val["daily-kWh"], 0);
   
@@ -28,7 +30,7 @@ export class EnergyMeterComponent implements AfterViewInit, OnChanges {
   }
 
   renderEnergyValue(): void {
-    if (this.energyValue <= 0) {
+    if (this.energyValue == 0) {
       this.energyValue = 0;
       this.delay = -1;
     } else {
@@ -43,7 +45,10 @@ export class EnergyMeterComponent implements AfterViewInit, OnChanges {
      *   this.delay = -1;
      * }
     */
-    this.energyValueString = this.energyValue.toFixed(4).padStart(6, '0');
+
+    // energyValueString should always be 8 characters long, the first character is whether it's positive or negative then the 7 characters
+    // should be 2 digit with 4 decimal places
+    this.energyValueString = (this.energyValue < 0 ? '-' : ' ') + Math.abs(this.energyValue).toFixed(4).toString().padStart(7, '0');
   }
 
   ngOnChanges(): void {
@@ -67,7 +72,8 @@ export class EnergyMeterComponent implements AfterViewInit, OnChanges {
 
   ngAfterViewInit(): void {
     this.svg = this.elRef.nativeElement.querySelector('svg') as SVGSVGElement;
-    this.path = this.elRef.nativeElement.querySelector('#myPath') as SVGPathElement;
+    this.path = this.elRef.nativeElement.querySelector('#house-to-grid') as SVGPathElement;
+    this.other_path = this.elRef.nativeElement.querySelector('#grid-to-house') as SVGPathElement;
     this.pathLength = this.path.getTotalLength();
 
     requestAnimationFrame(() => this.startAnimationFlow(performance.now()));
@@ -76,9 +82,14 @@ export class EnergyMeterComponent implements AfterViewInit, OnChanges {
   private createCircle(): void {
     const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle") as SVGCircleElement;
     circle.setAttribute("r", this.circleRadius.toString());
-    circle.setAttribute("fill", "rgba(0, 0, 0, 0)");
-    // circle.setAttribute("fill", "blue");
+    circle.setAttribute("fill", "transparent")
     this.svg.appendChild(circle);
+
+    // circle.addEventListener('animationend', function() {
+    //   circle.remove();  // Remove the circle from the DOM
+    // });
+    // circle.removeAttribute()
+    // animateMotion.beginElement();
 
     this.animateCircle(circle);
   }
@@ -89,14 +100,19 @@ export class EnergyMeterComponent implements AfterViewInit, OnChanges {
     const moveCircle = () => {
       const currentTime = performance.now();
       const progress = (currentTime - startTime) / this.duration;
-
       if (progress < 1) {
-        const point = this.path.getPointAtLength(progress * this.pathLength);
+        let point = this.path.getPointAtLength(this.pathLength - (progress * this.pathLength));
+        if (this.energyValue < 0 || ((this.energyValue == 0) && (this.lastDirection == -1))) {
+          this.lastDirection = -1;
+          point = this.path.getPointAtLength(progress * this.pathLength);
+        } else {
+          this.lastDirection = 1;
+        }
         circle.setAttribute("cx", point.x.toString());
         circle.setAttribute("cy", point.y.toString());
         circle.setAttribute("fill", "#ff0");
         requestAnimationFrame(moveCircle);
-      } else {
+      } else{
         this.svg.removeChild(circle); // Remove the circle once animation is done
       }
     };

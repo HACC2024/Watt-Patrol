@@ -9,12 +9,16 @@
                   <stop offset="100%" style="stop-color: #909090; stop-opacity: 1" />
                 </linearGradient>
             </defs>
-            <path id="myPath" d="M 0 10 L 90 10 Q 100 10 100 20 L 100 40 Q 100 50 110 50 L 190 50" stroke="url(#gradient)" fill="none" stroke-width="20px" />
+            <path id="house-to-grid" d="M 0 10 L 90 10 Q 100 10 100 20 L 100 40 Q 100 50 110 50 L 350 50" stroke="url(#gradient)" fill="none" stroke-width="20px" />
+            <!-- <path id="grid-to-house" d="M 0 15 L 85 15 Q 95 15 95 25 L 95 45 Q 95 55 105 55 L 185 55" stroke="url(#gradient)" fill="none" stroke-width="20px" /> -->
         </svg>
     </div>
     <div id="heco-meter">
         <img src="assets/images/energy-meter/meter.png" alt="Energy Meter" id="heco-meter-img" />
-        <p id="heco-meter-text"><span id="energy-value" [innerHTML]="energyValueString" #energy_value_span></span><span id="energy-unit">kWh</span></p>
+        <div id="heco-meter-text"><span id="energy-value" [innerText]="energyValueString" #energy_value_span></span><span id="energy-unit">kWh</span></div>
+    </div>
+    <div>
+        <img src="assets/images/energy-meter/grid.png" alt="grid" id="grid-img" />
     </div>
 </div>
   
