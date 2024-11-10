@@ -1,5 +1,6 @@
 import { Component, AfterViewInit, ElementRef, Renderer2, ViewChild, Input, OnChanges, EventEmitter, Output } from '@angular/core';
 import * as applianceEnergy from '../house/applianceEnergy.json';
+import { Options } from '@angular-slider/ngx-slider';
 
 @Component({
   selector: 'app-energy-meter',
@@ -8,6 +9,8 @@ import * as applianceEnergy from '../house/applianceEnergy.json';
 })
 export class EnergyMeterComponent implements AfterViewInit, OnChanges {
   @Input() itemToggled: any;
+  @Input() timeOfDay: number = 2;
+  public rate? : number;
   public energyValue: number = 0;
   public energyValueString: string = this.energyValue.toString().padStart(6, '0') + '&nbsp;';
   private delay: number = -1; // initial delay between each circle
@@ -15,14 +18,18 @@ export class EnergyMeterComponent implements AfterViewInit, OnChanges {
   private circleRadius: number = 8;
   private svg!: SVGSVGElement;
   private path!: SVGPathElement;
-  private other_path!: SVGPathElement;
   private pathLength!: number;
   private itemsMap: Map<string, number>
   private lastTimestamp: number = 0; // initial delay between each circle
   private lastDirection: number = 1; // initial direction of the last circle 1 = forward, -1 = backward
   private clear: Boolean = false;
 
-  private max_kWh: number = (applianceEnergy as any).default.reduce((acc: number, val: any) => acc + val["daily-kWh"], 0);
+  private max_kWh: number = (applianceEnergy as any).default.reduce((acc: number, curr: any) => {
+    if (curr["daily-kWh"] > 0) {
+      return acc + curr["daily-kWh"];
+    }
+    return acc;
+  }, 0);
   
   @ViewChild('energy_value_span') energyValueSpan!: ElementRef;
   @Output() turnOffAll: EventEmitter<void> = new EventEmitter<void>();
@@ -55,12 +62,26 @@ export class EnergyMeterComponent implements AfterViewInit, OnChanges {
      * }
     */
 
-    // energyValueString should always be 8 characters long, the first character is whether it's positive or negative then the 7 characters
-    // should be 2 digit with 4 decimal places
     this.energyValueString = (this.energyValue < 0 ? '-' : ' ') + Math.abs(this.energyValue).toFixed(4).toString().padStart(7, '0');
   }
 
-  ngOnChanges(): void {
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['timeOfDay'] !== undefined) {
+      // 
+      if (this.timeOfDay == 0) {
+        // Night time
+        this.rate = 34.8430;
+      }
+      if (this.timeOfDay == 1) {
+        // Evening time
+        this.rate = 52.2645;
+      }
+      if (this.timeOfDay == 2) {
+        // Day time
+        this.rate = 17.4215;
+      }
+    }
+
     if (this.itemToggled !== undefined) {
       if (typeof this.itemToggled == "string") {
         let itemKey = this.itemToggled.slice(0, -4);
@@ -82,7 +103,6 @@ export class EnergyMeterComponent implements AfterViewInit, OnChanges {
   ngAfterViewInit(): void {
     this.svg = this.elRef.nativeElement.querySelector('svg') as SVGSVGElement;
     this.path = this.elRef.nativeElement.querySelector('#house-to-grid') as SVGPathElement;
-    this.other_path = this.elRef.nativeElement.querySelector('#grid-to-house') as SVGPathElement;
     this.pathLength = this.path.getTotalLength();
 
     requestAnimationFrame(() => this.startAnimationFlow(performance.now()));

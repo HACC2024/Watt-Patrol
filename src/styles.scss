@@ -1,8 +1,39 @@
 /* You can add global styles to this file, and also import other style files */
+html, body {
+    margin: 0;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+
 body {
-    margin: 0px;
+    display: inline-block;
     overflow: hidden;
     background-color: #bae7f9;
     background-image: url('assets/images/background.png');
     background-size: cover;
+    background-repeat: no-repeat;
 }
+
+.time-images {
+    margin: -15px -18px -10px 0;
+    width: 50px; // Size the images
+    height: auto; // Keep aspect ratio
+}
+
+.time-ranges {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-right: -10px;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+}
+
+// .ngx-slider .ngx-slider-tick {
+//     width: 0px !important;
+//     height: 0px !important;
+// }
+
+// :focus-visible {
+//     outline: none;
+// }

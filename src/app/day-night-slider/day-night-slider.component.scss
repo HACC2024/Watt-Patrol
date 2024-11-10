@@ -1,0 +1,16 @@
+.slider-wrapper {
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    margin-left: 90px;
+    height: 100%;
+    top: 0;
+}
+
+.slider-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
