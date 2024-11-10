@@ -17,7 +17,6 @@ export class EnergyMeterComponent implements AfterViewInit, OnChanges {
   private circleRadius: number = 8;
   private svg!: SVGSVGElement;
   private path!: SVGPathElement;
-  private other_path!: SVGPathElement;
   private pathLength!: number;
   private itemsMap: Map<string, number>
   private lastTimestamp: number = 0; // initial delay between each circle
@@ -53,8 +52,6 @@ export class EnergyMeterComponent implements AfterViewInit, OnChanges {
      * }
     */
 
-    // energyValueString should always be 8 characters long, the first character is whether it's positive or negative then the 7 characters
-    // should be 2 digit with 4 decimal places
     this.energyValueString = (this.energyValue < 0 ? '-' : ' ') + Math.abs(this.energyValue).toFixed(4).toString().padStart(7, '0');
   }
 
@@ -83,7 +80,6 @@ export class EnergyMeterComponent implements AfterViewInit, OnChanges {
   ngAfterViewInit(): void {
     this.svg = this.elRef.nativeElement.querySelector('svg') as SVGSVGElement;
     this.path = this.elRef.nativeElement.querySelector('#house-to-grid') as SVGPathElement;
-    this.other_path = this.elRef.nativeElement.querySelector('#grid-to-house') as SVGPathElement;
     this.pathLength = this.path.getTotalLength();
 
     requestAnimationFrame(() => this.startAnimationFlow(performance.now()));
