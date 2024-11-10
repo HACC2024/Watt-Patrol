@@ -16,49 +16,45 @@
     position: absolute;
     cursor: pointer;
 }
-.house-appliance.active {
-    // animation: wiggle 2s infinite;
-}
-.solar-panel.glow,
-.house-appliance.glow {
-    display: none;
-}
+// .solar-panel.glow,
+// .house-appliance.glow {
+//     display: none;
+// }
 
-.solar-panel.glow.active,
-.house-appliance.glow.active {
-    // animation: wiggle 2s infinite;
-    display: block;
-}
+// .solar-panel.glow.active,
+// .house-appliance.glow.active {
+//     display: block;
+// }
 
 
 #solarpanel {
     position: absolute;
     cursor: pointer;
     width: 170px;
-    top: 34px;
+    top: -24px;
     left: 305px;
 }
 
 .house-controls {
     #refrigerator {
-        top: 356px;
-        left: 149px;
-        width: 65px;
+        top: 353px;
+        left: 146px;
+        width: 70px;
     }
     #oven {
-        top: 384px;
-        left: 104px;
-        width: 55px;
+        top: 382px;
+        left: 101px;
+        width: 60px;
     }
     #washer {
         top: 233px;
         left: 268px;
-        width: 50px;
+        width: 52px;
     }
     #dryer {
         top: 233px;
         left: 308px;
-        width: 50px;
+        width: 52px;
     }
     #ac {
         top: 150px;
@@ -84,13 +80,22 @@
         top: 297px;
         left: 335px;
         width: 85px;
-    }    
+    }
 }
 
+
+// #ceiling-fan.active {
+//     animation: wiggle 1s infinite;
+// }
+
+
+// .house-appliance.active {
+//     animation: wiggle 1s infinite;
+// }
 @keyframes wiggle {
     // 0% { transform: rotate(0deg); }
-   25% { transform: rotate(10deg); }
+   25% { transform: rotate(3deg); }
 //    50% { transform: rotate(0deg); }
-   75% { transform: rotate(-10deg); }
+   75% { transform: rotate(-3deg); }
 //   100% { transform: rotate(0deg); }
 }
