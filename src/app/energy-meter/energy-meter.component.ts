@@ -10,6 +10,7 @@ import { Options } from '@angular-slider/ngx-slider';
 export class EnergyMeterComponent implements AfterViewInit, OnChanges {
   @Input() itemToggled: any;
   @Input() timeOfDay: number = 2;
+  public rate? : number;
   public energyValue: number = 0;
   public energyValueString: string = this.energyValue.toString().padStart(6, '0') + '&nbsp;';
   private delay: number = -1; // initial delay between each circle
@@ -57,8 +58,21 @@ export class EnergyMeterComponent implements AfterViewInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['timeOfDay'] !== undefined) {
-      // Add logic to change cost of electricity based on time of day
+      // 
+      if (this.timeOfDay == 0) {
+        // Night time
+        this.rate = 34.8430;
+      }
+      if (this.timeOfDay == 1) {
+        // Evening time
+        this.rate = 52.2645;
+      }
+      if (this.timeOfDay == 2) {
+        // Day time
+        this.rate = 17.4215;
+      }
     }
+
     if (this.itemToggled !== undefined) {
       if (typeof this.itemToggled == "string") {
         let itemKey = this.itemToggled.slice(0, -4);

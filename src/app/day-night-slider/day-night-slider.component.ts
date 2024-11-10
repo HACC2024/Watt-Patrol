@@ -25,9 +25,9 @@ export class DayNightSliderComponent {
       showTicksValues: false,
       showTicks: true,
       stepsArray: [
-        {value: 0, legend: '<img src="assets/images/sky/night.PNG" alt="Night Moon" class="time-images" />'},
-        {value: 1, legend: '<img src="assets/images/sky/evening.PNG" alt="Evening Sun" class="time-images" />'},
-        {value: 2, legend: '<img src="assets/images/sky/day.PNG" alt="Morning Sun" class="time-images" />'},
+        {value: 0, legend: '<img src="assets/images/sky/night.PNG" alt="Night Moon" class="time-images" /><span class="time-ranges">Overnight <br> (9pm - 9am)</span>'},
+        {value: 1, legend: '<img src="assets/images/sky/evening.PNG" alt="Evening Sun" class="time-images" /><span class="time-ranges">Evening Peak <br> (5pm - 9pm)</span>'},
+        {value: 2, legend: '<img src="assets/images/sky/day.PNG" alt="Morning Sun" class="time-images" /><span class="time-ranges">Daytime <br>(9am - 5pm)</span>'},
       ],
       hideLimitLabels: true,
       hidePointerLabels: true,

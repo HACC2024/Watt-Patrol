@@ -2,17 +2,15 @@
     position: absolute;
     display: flex;
     flex-direction: row;
-    margin-left: 80px;
-    top: 12%;
+    justify-content: flex-start;
+    align-items: center;
+    margin-left: 90px;
+    height: 100%;
+    top: 0;
 }
 
 .slider-container {
     display: flex;
     align-items: center;
     position: relative;
-}
-
-.time-images {
-    width: 50px; // Size the images
-    height: auto; // Keep aspect ratio
 }
