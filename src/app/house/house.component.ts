@@ -22,9 +22,9 @@ export class HouseComponent implements OnInit {
   isCeilingFanOn: boolean = false;
   isPorchLightOn: boolean = false;
   isSolarPanelOn: boolean = false;
-  
+
   // Audio elements
-  private refrigeratorOnElement: HTMLAudioElement | undefined;  
+  private refrigeratorOnElement: HTMLAudioElement | undefined;
   private refrigeratorOffElement: HTMLAudioElement | undefined;
   private washerOnElement: HTMLAudioElement | undefined;
   private washerOffElement: HTMLAudioElement | undefined;
@@ -108,7 +108,7 @@ export class HouseComponent implements OnInit {
     const isActive = this.getApplianceState(element.id);
 
     // Play audio on toggle event
-    this.playAudio(element.id);
+    if (element.id !== "solar-panel") this.playAudio(element.id);
 
     if (isActive) {
       // Pass the energy consumption data on toggle event emission
@@ -150,6 +150,9 @@ export class HouseComponent implements OnInit {
       case 'porch-light':
         this.isPorchLightOn = !this.isPorchLightOn;
         return this.isPorchLightOn;
+      case 'solar-panel':
+        this.isSolarPanelOn = !this.isSolarPanelOn;
+        return this.isSolarPanelOn;
       default:
         return false;
     }
@@ -305,7 +308,6 @@ export class HouseComponent implements OnInit {
   toggleSolarPanel(e: any) {
     const element = e.target;
     this.isSolarPanelOn = !this.isSolarPanelOn;
-
     this.solarPanelToggled.emit(this.isSolarPanelOn);
   }
 
