@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { NgxSliderModule, AllowUnsafeHtmlInSlider } from '@angular-slider/ngx-slider';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -34,9 +35,12 @@ FusionChartsModule.fcRoot(FusionCharts, Charts, FusionTheme, Widgets);
   imports: [
     BrowserModule,
     FusionChartsModule, // Include the FusionCharts module
+    NgxSliderModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [
+    { provide: AllowUnsafeHtmlInSlider, useValue: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

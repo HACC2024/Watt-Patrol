@@ -1,5 +1,6 @@
 import { Component, AfterViewInit, ElementRef, Renderer2, ViewChild, Input, OnChanges } from '@angular/core';
 import * as applianceEnergy from '../house/applianceEnergy.json';
+import { Options } from '@angular-slider/ngx-slider';
 
 @Component({
   selector: 'app-energy-meter',
