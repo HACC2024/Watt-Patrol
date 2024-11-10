@@ -6,3 +6,18 @@ body {
     background-image: url('assets/images/background.png');
     background-size: cover;
 }
+
+.time-images {
+    margin: -15px -6px 0 0;
+    width: 50px; // Size the images
+    height: auto; // Keep aspect ratio
+}
+
+// .ngx-slider .ngx-slider-tick {
+//     width: 0px !important;
+//     height: 0px !important;
+// }
+
+// :focus-visible {
+//     outline: none;
+// }

@@ -8,6 +8,7 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'watt-patrol';
   itemToggled = '';
+  time = 2;
 
   dataSource = {
     "chart": {
@@ -43,6 +44,10 @@ export class AppComponent {
 
   onItemToggled(e: any) {
     this.itemToggled = e;
+  }
+
+  onTimeChange(e: any) {
+    this.time = e;
   }
 
   constructor(){}

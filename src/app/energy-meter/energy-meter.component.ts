@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, ElementRef, Renderer2, ViewChild, Input, OnChanges } from '@angular/core';
+import { Component, AfterViewInit, ElementRef, Renderer2, ViewChild, Input, OnChanges, SimpleChanges } from '@angular/core';
 import * as applianceEnergy from '../house/applianceEnergy.json';
 import { Options } from '@angular-slider/ngx-slider';
 
@@ -9,6 +9,7 @@ import { Options } from '@angular-slider/ngx-slider';
 })
 export class EnergyMeterComponent implements AfterViewInit, OnChanges {
   @Input() itemToggled: any;
+  @Input() timeOfDay: number = 2;
   public energyValue: number = 0;
   public energyValueString: string = this.energyValue.toString().padStart(6, '0') + '&nbsp;';
   private delay: number = -1; // initial delay between each circle
@@ -57,7 +58,10 @@ export class EnergyMeterComponent implements AfterViewInit, OnChanges {
     this.energyValueString = (this.energyValue < 0 ? '-' : ' ') + Math.abs(this.energyValue).toFixed(4).toString().padStart(7, '0');
   }
 
-  ngOnChanges(): void {
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['timeOfDay'] !== undefined) {
+      // Add logic to change cost of electricity based on time of day
+    }
     if (this.itemToggled !== undefined) {
       if (typeof this.itemToggled == "string") {
         let itemKey = this.itemToggled.slice(0, -4);

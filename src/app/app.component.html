@@ -1,7 +1,7 @@
 <div>
-  <app-energy-meter [itemToggled]="itemToggled"></app-energy-meter>
+  <app-energy-meter [itemToggled]="itemToggled" [timeOfDay]="time"></app-energy-meter>
   <app-house (itemToggled)="onItemToggled($event)"></app-house>
-  <app-day-night-slider></app-day-night-slider>
+  <app-day-night-slider (timeValue)="onTimeChange($event)"></app-day-night-slider>
   <app-house (itemToggled)="onItemToggled($event)"></app-house>
   <app-appliance-chart></app-appliance-chart>
   <app-lightbulb [itemToggled]="itemToggled"></app-lightbulb>
