@@ -47,4 +47,19 @@ export class HouseComponent implements OnInit {
     // console.log(this.applianceEnergy);
     return this.applianceEnergy.find((appliance: any) => appliance.name === applianceId);
   }
+
+  turnOffAllAppliances(): void {
+    this.applianceEnergy.forEach((appliance: any) => {
+      const applianceElement = document.getElementById(appliance.name);
+      if (applianceElement && applianceElement.classList.contains('active')) {
+        applianceElement.classList.remove('active');
+        const glowElement = applianceElement.previousElementSibling;
+        if (glowElement) {
+          glowElement.classList.remove('active');
+        }
+        this.itemToggled.emit(appliance.name.concat("-off"));
+      }
+    });
+    console.log('All appliances have been turned off.');
+  }
 }

@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, ElementRef, Renderer2, ViewChild, Input, OnChanges } from '@angular/core';
+import { Component, AfterViewInit, ElementRef, Renderer2, ViewChild, Input, OnChanges, EventEmitter, Output } from '@angular/core';
 import * as applianceEnergy from '../house/applianceEnergy.json';
 
 @Component({
@@ -24,18 +24,26 @@ export class EnergyMeterComponent implements AfterViewInit, OnChanges {
   private max_kWh: number = (applianceEnergy as any).default.reduce((acc: number, val: any) => acc + val["daily-kWh"], 0);
   
   @ViewChild('energy_value_span') energyValueSpan!: ElementRef;
+  @Output() turnOffAll: EventEmitter<void> = new EventEmitter<void>();
   
   constructor(private renderer: Renderer2, private elRef: ElementRef) {
     this.itemsMap = new Map<string, number>();
   }
 
   renderEnergyValue(): void {
+    const threshold = 10000; 
+
     if (this.energyValue == 0) {
       this.energyValue = 0;
       this.delay = -1;
     } else {
       let scaleFactor = 0.4 + (0.6 * (this.max_kWh - this.energyValue) / this.max_kWh);
       this.delay = 800 * scaleFactor;
+    }
+
+    if (this.energyValue >= threshold) {
+      this.turnEverythingOff(); 
+      return; 
     }
     /** 
      * If we ever want to add blinking error effect for some cases:
@@ -127,5 +135,19 @@ export class EnergyMeterComponent implements AfterViewInit, OnChanges {
     }
     
     requestAnimationFrame(() => this.startAnimationFlow(performance.now()));
+  }
+
+  private turnEverythingOff(): void {
+    // Only remove active animations if needed
+    if (this.svg.children.length > 0) {
+      while (this.svg.firstChild) {
+        this.svg.removeChild(this.svg.firstChild);
+      }
+    }
+    
+    this.turnOffAll.emit();
+
+    this.energyValue = 0;
+    console.log('Energy threshold reached. All appliances have been turned off.');
   }
 }

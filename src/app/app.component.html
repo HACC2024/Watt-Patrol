@@ -1,5 +1,7 @@
 <div>
   <app-energy-meter [itemToggled]="itemToggled"></app-energy-meter>
+  <app-energy-meter (turnOffAll)="houseComponent.turnOffAllAppliances()"></app-energy-meter>
+  <app-house #houseComponent></app-house>
   <app-house (itemToggled)="onItemToggled($event)"></app-house>
   <app-day-night-slider></app-day-night-slider>
   <app-appliance-chart></app-appliance-chart>
