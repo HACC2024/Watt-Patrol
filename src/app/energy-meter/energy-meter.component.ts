@@ -21,7 +21,12 @@ export class EnergyMeterComponent implements AfterViewInit, OnChanges {
   private lastTimestamp: number = 0; // initial delay between each circle
   private lastDirection: number = 1; // initial direction of the last circle 1 = forward, -1 = backward
 
-  private max_kWh: number = (applianceEnergy as any).default.reduce((acc: number, val: any) => acc + val["daily-kWh"], 0);
+  private max_kWh: number = (applianceEnergy as any).default.reduce((acc: number, curr: any) => {
+    if (curr["daily-kWh"] > 0) {
+      return acc + curr["daily-kWh"];
+    }
+    return acc;
+  }, 0);
   
   @ViewChild('energy_value_span') energyValueSpan!: ElementRef;
   
