@@ -2,47 +2,95 @@
     <div class="house-layout">
         <img src="assets/images/house/house.png" alt="House" class="house-image">
         <div class="solar-panel-wrapper">
-            <img src="assets/images/house/solarpanel_glow.png" alt="Glowing Solar Panel" id="solar-panel" class="solar-panel glow">
-            <img src="assets/images/house/solarpanel.png" alt="Solar Panel" class="solar-panel" id="solar-panel" (click)="toggleAppliance($event)" >
+            <img [src]="isSolarPanelOn ? 'assets/images/house/solarpanel_glow.png' 
+                                    : 'assets/images/house/solarpanel.png'"
+                    [ngClass]="{ 'active': isSolarPanelOn }"
+                    alt="Solar Panel"
+                    id="solar-panel" 
+                    (click)="toggleSolarPanel($event)"/>
         </div>
         <div class="house-controls">
             <!--- Appliances --->
             <div class="house-appliance-wrapper">
-                <img src="assets/images/house/refrigerator_glow.png" alt="Glowing Refrigerator" id="refrigerator" class="house-appliance glow">
-                <img src="assets/images/house/refrigerator.png" alt="Refrigerator" class="house-appliance" id="refrigerator" (click)="toggleAppliance($event)">
+                <img [src]="isRefrigeratorOn ? 'assets/images/house/refrigerator_glow.png' 
+                                     : 'assets/images/house/refrigerator.png'"
+                     [ngClass]="{ 'active': isRefrigeratorOn }"
+                        alt="Refrigerator"
+                        id="refrigerator" 
+                        class="house-appliance" 
+                        (click)="toggleAppliance($event)"/>
             </div>
             <div class="house-appliance-wrapper">
-                <img src="assets/images/house/washer_glow.png" alt="Glowing Washer" id="washer" class="house-appliance glow">
-                <img src="assets/images/house/washer.png" alt="Washer" class="house-appliance" id="washer" (click)="toggleAppliance($event)">
+                <img [src]="isWasherOn ? 'assets/images/house/washer_glow.png' 
+                                     : 'assets/images/house/washer.png'"
+                     [ngClass]="{ 'active': isWasherOn }"
+                        alt="Washer"
+                        id="washer" 
+                        class="house-appliance" 
+                        (click)="toggleAppliance($event)"/>
             </div>
             <div class="house-appliance-wrapper">
-                <img src="assets/images/house/dryer_glow.png" alt="Glowing Dryer" id="dryer" class="house-appliance glow">
-                <img src="assets/images/house/dryer.png" alt="Dryer" class="house-appliance" id="dryer" (click)="toggleAppliance($event)" >
+                <img [src]="isDryerOn ? 'assets/images/house/dryer_glow.png' 
+                                     : 'assets/images/house/dryer.png'"
+                     [ngClass]="{ 'active': isDryerOn }"
+                        alt="Dryer"
+                        id="dryer" 
+                        class="house-appliance" 
+                        (click)="toggleAppliance($event)"/>
             </div>
             <div class="house-appliance-wrapper">
-                <img src="assets/images/house/ac_glow.png" alt="Glowing AC" id="ac" class="house-appliance glow">
-                <img *ngIf="isACOn" src="assets/images/house/ac.png" alt="AC On" id="ac" class="house-appliance" (click)="toggleAppliance($event)">
-                <img *ngIf="!isACOn" src="assets/images/house/ac_off.png" alt="AC Off" class="house-appliance" id="ac" (click)="toggleAppliance($event)">
+                <img [src]="isACOn ? 'assets/images/house/ac_glow.png' 
+                                : 'assets/images/house/ac.png'"
+                     [ngClass]="{ 'active': isACOn }"
+                        alt="AC"
+                        id="ac"
+                        class="house-appliance"
+                        (click)="toggleAppliance($event)"/>
             </div>
             <div class="house-appliance-wrapper">
-                <img src="assets/images/house/oven_glow.png" alt="Glowing Oven" id="oven" class="house-appliance glow">
-                <img src="assets/images/house/oven.png" alt="Oven" class="house-appliance" id="oven" (click)="toggleAppliance($event)">
+                <img [src]="isOvenOn ? 'assets/images/house/oven_glow.png' 
+                                     : 'assets/images/house/oven.png'"
+                     [ngClass]="{ 'active': isOvenOn }"
+                        alt="Oven"
+                        id="oven"
+                        class="house-appliance"
+                        (click)="toggleAppliance($event)"/>
             </div>
             <div class="house-appliance-wrapper">
-                <img src="assets/images/house/light_glow.png" alt="Glowing Light" id="light" class="house-appliance glow">
-                <img src="assets/images/house/light.png" alt="Light" class="house-appliance" id="light" (click)="toggleAppliance($event)">
+                <img [src]="isLightOn ? 'assets/images/house/light_glow.png' 
+                                      : 'assets/images/house/light.png'"
+                     [ngClass]="{ 'active': isLightOn }"
+                        alt="Light"
+                        id="light"
+                        class="house-appliance"
+                        (click)="toggleAppliance($event)"/>
             </div>
             <div class="house-appliance-wrapper">
-                <img src="assets/images/house/tv_glow.png" alt="Glowing TV" id="tv" class="house-appliance glow">
-                <img src="assets/images/house/tv.png" alt="TV" class="house-appliance" id="tv" (click)="toggleAppliance($event)">
+                <img [src]="isTVOn ? 'assets/images/house/tv_glow.png' 
+                                   : 'assets/images/house/tv.png'"
+                     [ngClass]="{ 'active': isTVOn }"
+                        alt="TV"
+                        id="tv"
+                        class="house-appliance"
+                        (click)="toggleAppliance($event)"/>
             </div>
             <div class="house-appliance-wrapper">
-                <img src="assets/images/house/ceilingfan_glow.png" alt="Glowing Ceiling Fan" id="ceiling-fan" class="house-appliance glow">
-                <img src="assets/images/house/ceilingfan.png" alt="Ceiling Fan" class="house-appliance" id="ceiling-fan" (click)="toggleAppliance($event)">
+                <img [src]="isCeilingFanOn ? 'assets/images/house/ceilingfan_glow.png' 
+                                           : 'assets/images/house/ceilingfan.png'"
+                     [ngClass]="{ 'active': isCeilingFanOn }"
+                        alt="Ceiling Fan"
+                        id="ceiling-fan"
+                        class="house-appliance"
+                        (click)="toggleAppliance($event)"/>
             </div>
             <div class="house-appliance-wrapper">
-                <img src="assets/images/house/porchlight_glow.png" alt="Glowing Porch Light" id="porch-light" class="house-appliance glow">
-                <img src="assets/images/house/porchlight.png" alt="Porch Light" class="house-appliance" id="porch-light" (click)="toggleAppliance($event)">
+                <img [src]="isPorchLightOn ? 'assets/images/house/porchlight_glow.png' 
+                                          : 'assets/images/house/porchlight.png'"
+                     [ngClass]="{ 'active': isPorchLightOn }"
+                        alt="Porch Light"
+                        id="porch-light"
+                        class="house-appliance"
+                        (click)="toggleAppliance($event)"/>
             </div>
         </div>
     </div>
