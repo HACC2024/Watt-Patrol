@@ -1,9 +1,10 @@
 import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
-import * as lightbulbMessageAudio from './lightbulb-messages-audio.json';
+import lightbulbMessageAudio from '../../assets/json/lightbulb-messages-audio.json';
 
 interface MessageItem {
-    msg: string;
-    file: string;
+  msg: string;
+  file: string;
+  audio?: HTMLAudioElement;
 }
 
 interface LightbulbMessageAudio {
@@ -20,7 +21,7 @@ export class LightbulbComponent implements OnInit, OnChanges {
 
   showMsg: boolean = false;
 
-  private lightbulbMessageAudio: LightbulbMessageAudio = (lightbulbMessageAudio as any).default;
+  private lightbulbMessageAudio: LightbulbMessageAudio = lightbulbMessageAudio;
 
   msg = '';
 
@@ -31,6 +32,7 @@ export class LightbulbComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this.preloadSpeechBubble();
+    this.preloadAudio();
     this.cycleIdleMsg();
   }
 
@@ -38,6 +40,17 @@ export class LightbulbComponent implements OnInit, OnChanges {
   preloadSpeechBubble() {
     const img = new Image();
     img.src = 'assets/images/lightbulb/speech-bubble.png';
+  }
+
+  preloadAudio() {
+    for (const appliance in lightbulbMessageAudio) {
+      for (const message in this.lightbulbMessageAudio[appliance]) {
+        const audio = new Audio();
+        audio.src = `assets/audio/lightbulb/${this.lightbulbMessageAudio[appliance][message]['file']}`;
+        audio.preload = 'auto';
+        this.lightbulbMessageAudio[appliance][message]['audio'] = audio;
+      }
+    }
   }
 
   showApplianceMsg() {
@@ -49,6 +62,7 @@ export class LightbulbComponent implements OnInit, OnChanges {
       const select = Math.floor(Math.random() * itemMessagesAudios.length);
       this.msg = itemMessagesAudios[select].msg;
       this.showMsg = true;
+      itemMessagesAudios[select].audio?.play();
 
       setTimeout(() => {
         this.showMsg = false;
@@ -65,6 +79,7 @@ export class LightbulbComponent implements OnInit, OnChanges {
     if (!this.showMsg) {
       this.msg = idleMessages[select].msg;
       this.showMsg = true;
+      idleMessages[select].audio?.play();
 
       setTimeout(() => {
         this.showMsg = false;
@@ -73,13 +88,13 @@ export class LightbulbComponent implements OnInit, OnChanges {
   }
 
   cycleIdleMsg() {
-    const timeCycle = 1 * 1000; 
+    const timeCycle = 1 * 1000;
     const timeToShow = 30;  // Idle message shows after timeToShow seconds
     var timer = 0;
 
     setInterval(() => {
       if (!this.showMsg) {
-        timer++;        
+        timer++;
       } else {
         timer = 0;
       }
