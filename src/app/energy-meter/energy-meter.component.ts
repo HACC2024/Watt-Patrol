@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Options } from '@angular-slider/ngx-slider';
 
 @Component({
   selector: 'app-energy-meter',

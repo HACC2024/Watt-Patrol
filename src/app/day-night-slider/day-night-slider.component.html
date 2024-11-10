@@ -1,1 +1,13 @@
 <p>day-night-slider works!</p>
+<div class="slider-wrapper">
+    <div class="slider-layout" style="height: 300px">
+        <div class="slider-container" style="height: 100%; display: flex; align-items: center;">
+            <ngx-slider [(value)]="daytimeSlider.value" [options]="daytimeSlider.options"></ngx-slider>
+            <div class="daytime-images">
+                <img src="assets/images/sky/day.PNG" alt="Morning Sun" class="morning">
+                <img src="assets/images/sky/evening.PNG" alt="Evening Sun" class="evening">
+                <img src="assets/images/sky/night.PNG" alt="Night Moon" class="night">
+            </div>
+        </div>
+    </div>
+</div>
