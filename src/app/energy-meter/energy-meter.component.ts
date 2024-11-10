@@ -20,6 +20,7 @@ export class EnergyMeterComponent implements AfterViewInit, OnChanges {
   private itemsMap: Map<string, number>
   private lastTimestamp: number = 0; // initial delay between each circle
   private lastDirection: number = 1; // initial direction of the last circle 1 = forward, -1 = backward
+  private clear: Boolean = false;
 
   private max_kWh: number = (applianceEnergy as any).default.reduce((acc: number, val: any) => acc + val["daily-kWh"], 0);
   
@@ -31,7 +32,7 @@ export class EnergyMeterComponent implements AfterViewInit, OnChanges {
   }
 
   renderEnergyValue(): void {
-    const threshold = 10000; 
+    const threshold = 5.67; 
 
     if (this.energyValue == 0) {
       this.energyValue = 0;
@@ -88,6 +89,7 @@ export class EnergyMeterComponent implements AfterViewInit, OnChanges {
   }
 
   private createCircle(): void {
+    console.log("creating circle")
     const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle") as SVGCircleElement;
     circle.setAttribute("r", this.circleRadius.toString());
     circle.setAttribute("fill", "transparent")
@@ -124,12 +126,12 @@ export class EnergyMeterComponent implements AfterViewInit, OnChanges {
         this.svg.removeChild(circle); // Remove the circle once animation is done
       }
     };
-
+    
     requestAnimationFrame(moveCircle);
   }
 
   private startAnimationFlow(timestamp: number): void {
-    if (this.delay != -1 && timestamp - this.lastTimestamp >= this.delay) {
+    if (this.delay != -1 && timestamp - this.lastTimestamp >= this.delay && this.energyValue !== 0) {
       this.createCircle();
       this.lastTimestamp = timestamp;
     }
@@ -139,15 +141,19 @@ export class EnergyMeterComponent implements AfterViewInit, OnChanges {
 
   private turnEverythingOff(): void {
     // Only remove active animations if needed
-    if (this.svg.children.length > 0) {
-      while (this.svg.firstChild) {
-        this.svg.removeChild(this.svg.firstChild);
-      }
-    }
+    // if (this.svg.children.length > 0) {
+    //   while (this.svg.firstChild) {
+    //     this.svg.removeChild(this.svg.firstChild);
+    //   }
+    // }
     
     this.turnOffAll.emit();
+    this.clear = true;
 
     this.energyValue = 0;
+    this.itemsMap = new Map<string, number>();
+
+    console.log('energy value', this.energyValue)
     console.log('Energy threshold reached. All appliances have been turned off.');
   }
 }

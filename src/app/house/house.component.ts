@@ -24,6 +24,7 @@ export class HouseComponent implements OnInit {
   }
 
   toggleAppliance(e: any) {
+    console.log("toggleAppliance")
     const element = e.target;
     const glowElement = e.target.previousElementSibling;
 
@@ -49,6 +50,8 @@ export class HouseComponent implements OnInit {
   }
 
   turnOffAllAppliances(): void {
+    console.log("turn off all")
+
     this.applianceEnergy.forEach((appliance: any) => {
       const applianceElement = document.getElementById(appliance.name);
       if (applianceElement && applianceElement.classList.contains('active')) {
