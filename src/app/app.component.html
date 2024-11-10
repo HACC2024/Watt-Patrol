@@ -1,8 +1,14 @@
 <div>
-  <img src="assets/images/background.png" alt="Background" id="background">
-  <app-energy-meter></app-energy-meter>
+  <app-energy-meter [itemToggled]="itemToggled"></app-energy-meter>
   <app-house (itemToggled)="onItemToggled($event)"></app-house>
   <app-day-night-slider></app-day-night-slider>
   <app-appliance-chart></app-appliance-chart>
-  <app-lightbulb [itemToggled] = "itemToggled"></app-lightbulb>
+  <app-lightbulb [itemToggled]="itemToggled"></app-lightbulb>
+  <fusioncharts 
+    type="angulargauge" 
+    width="450" 
+    height="250" 
+    dataFormat="json" 
+    [dataSource]="dataSource">
+  </fusioncharts>
 </div>

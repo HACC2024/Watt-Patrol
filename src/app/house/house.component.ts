@@ -33,13 +33,14 @@ export class HouseComponent implements OnInit {
     if (element.id === "ac") this.isACOn = !this.isACOn;
 
     if (glowElement.classList.contains("active")) {
-      const energyConsumption = this.getEnergyConsumption(element.id);
+      const energyConsumption = this.getEnergyConsumption(element.id) as { [key: string]: any };
       this.itemToggled.emit(energyConsumption);
-      console.log(energyConsumption);
+      // console.log(energyConsumption);
     } else {
-      this.itemToggled.emit('');
+      const energyConsumption = this.getEnergyConsumption(element.id) as { [key: string]: any };
+      this.itemToggled.emit(energyConsumption["name"].concat("-off"));
     }
-  }
+  } 
 
   // Gets a daily kWh consumption for the appliance toggled.
   getEnergyConsumption(applianceId: string) {
