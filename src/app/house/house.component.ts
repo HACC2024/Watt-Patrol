@@ -35,7 +35,7 @@ export class HouseComponent implements OnInit {
     if (glowElement.classList.contains("active")) {
       const energyConsumption = this.getEnergyConsumption(element.id) as { [key: string]: any };
       this.itemToggled.emit(energyConsumption);
-      console.log(energyConsumption);
+      // console.log(energyConsumption);
     } else {
       const energyConsumption = this.getEnergyConsumption(element.id) as { [key: string]: any };
       this.itemToggled.emit(energyConsumption["name"].concat("-off"));
