@@ -104,7 +104,6 @@ export class HouseComponent implements OnInit {
   }
 
   toggleAppliance(e: any) {
-    console.log("toggleAppliance")
     const element = e.target;
     const isActive = this.getApplianceState(element.id);
 
@@ -322,7 +321,5 @@ export class HouseComponent implements OnInit {
     this.isCeilingFanOn = false;
     this.isPorchLightOn = false;
     this.isSolarPanelOn = false;
-
-    console.log('All appliances have been turned off.');
   }
 }

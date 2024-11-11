@@ -1,30 +1,32 @@
 .lightbulb-wrapper {
+    position: absolute;
+    bottom: calc(2% + 471px - 100px);
+    left: 12%;
+
     #lightbulb {
-        position: absolute;
-        top: 13%;
-        left: 58%;
-        width: 25%;
+        display: inline-block;
+        height: 255px;
     }
+}
 
-    .speech-bubble {
+.speech-bubble {
+    position: absolute;
+    bottom: calc(2% + 550px);
+    left: calc(12% + 130px);
+    text-align: center;
+    vertical-align: middle;
+    align-items: center;
+    display: inline-flex;
+    width: fit-content;
+
+    // #speech {
+    //     width: 95%;
+    // }
+
+    .message {
         position: absolute;
-        top: 0%;
-        left: 71%;
-        text-align: center;
-        vertical-align: middle;
-        align-items: center;
-        display: flex;
-        width: fit-content;
-
-        // #speech {
-        //     width: 95%;
-        // }
-
-        .message {
-            position: absolute;
-            left: 14%;
-            width: 75%;
-            transform: translateY(-50%);
-        }
+        left: 14%;
+        width: 75%;
+        transform: translateY(-50%);
     }
 }

@@ -10,8 +10,8 @@
   position: absolute;
   display: flex;
   flex-direction: row;
-  left: 38%;
-  top: 40%;
+  left: calc(12% + 300px);
+  bottom: -30px;
 }
 
 #svg-path {
@@ -22,15 +22,17 @@
 
 #heco-meter {
   position: relative;
-  margin-left: -40px;
+  top: 110px;
+  left: -500px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
   background-image: url('../../assets/images/energy-meter/meter.png');
   background-size: cover;
-  height: 200px;
   width: 200px;
+  height: 200px;
+  border-radius: 50%;
 }
 
 // #heco-meter-img {
@@ -65,9 +67,14 @@
   text-align: right;
 }
 
+#grid {
+  position: absolute;
+  bottom: 70px;
+  left: 610px;
+}
+
 #grid-img {
   height: 200px;
-  padding-left: 120px;
 }
 
 #energy-rate {

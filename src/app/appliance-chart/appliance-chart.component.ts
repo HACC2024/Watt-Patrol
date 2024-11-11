@@ -42,15 +42,14 @@ export class ApplianceChartComponent implements AfterViewInit {
         this.images.forEach((img, index) => {
           const x = xAxis.getPixelForValue(index);
           const y = chart.height - 40;
-          console.log(img)
           if (img.src.includes("tv")) {
-            ctx.drawImage(img, x - 50, y - 40, 100, 70);
+            ctx.drawImage(img, xAxis.getPixelForValue(index) - (90/2), y - 40, 90, 60);
           } else if (img.src.includes("ac")) {
-            ctx.drawImage(img, x - 65, y - 40, 130, 70);
+            ctx.drawImage(img, xAxis.getPixelForValue(index) - (100/2), y - 40, 100, 70);
           } else if (img.src.includes("refrigerator")) {
-            ctx.drawImage(img, x - 35, y - 40, 70, 90);
+            ctx.drawImage(img, xAxis.getPixelForValue(index) - (70/2), y - 40, 70, 90);
           } else {
-            ctx.drawImage(img, x - 35, y - 40, 70, 70);
+            ctx.drawImage(img, xAxis.getPixelForValue(index) - (70/2), y - 40, 70, 70);
           }
         });
       }
@@ -64,7 +63,7 @@ export class ApplianceChartComponent implements AfterViewInit {
           {
             data: this.data,
             backgroundColor: [
-              'blue', 'green', 'red', 'purple', 'orange', 'cyan', 'magenta', 'yellow', 'pink'
+              'blue', 'lightgrey', 'red', 'purple', 'orange', 'cyan', 'magenta', 'yellow', 'pink'
             ]
           }
         ]
@@ -88,9 +87,13 @@ export class ApplianceChartComponent implements AfterViewInit {
               display: false,
               color: '#c4c4c4',
             },
-            grid: { 
+            grid: {
+              display: false,
               color: '#c4c4c4',
-              tickColor: '#c4c4c4'
+              tickColor: '#c4c4c4',
+            },
+            border: {
+              display: false,
             }
           },
           y: {
@@ -99,13 +102,18 @@ export class ApplianceChartComponent implements AfterViewInit {
               display: false,
             },
             grid: { 
+              display: false,
               color: '#c4c4c4',
               tickColor: '#c4c4c4'
 
             },
             ticks: {
+              display: false,
               color: '#c4c4c4',
             },
+            border: {
+              display: false,
+            }
           }
         },
         plugins: {

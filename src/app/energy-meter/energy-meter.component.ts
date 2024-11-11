@@ -169,7 +169,7 @@ export class EnergyMeterComponent implements AfterViewInit, OnChanges {
     const moveCircle = () => {
       const currentTime = performance.now();
       const progress = (currentTime - startTime) / this.duration;
-      if (progress < 1) {
+      if (progress < 0.98) {
         let point = this.path.getPointAtLength(this.pathLength - (progress * this.pathLength));
         if (this.energyValue < 0 || ((this.energyValue == 0) && (this.lastDirection == -1))) {
           this.lastDirection = -1;

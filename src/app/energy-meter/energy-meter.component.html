@@ -1,19 +1,20 @@
 <div id="energy-meter">
-    <div id="energy-wire">
-        <svg id="svg-path" width="100%" height="100%" viewBox="0 0 170 100" class="path"
-            preserveAspectRatio="xMidYMid meet">
-            <defs>
-                <linearGradient id="gradient" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
-                    <stop offset="0%" style="stop-color: #909090; stop-opacity: 1" />
-                    <stop offset="30%" style="stop-color: #595959; stop-opacity: 1" />
-                    <stop offset="60%" style="stop-color: #595959; stop-opacity: 1" />
-                    <stop offset="100%" style="stop-color: #909090; stop-opacity: 1" />
-                </linearGradient>
-            </defs>
-            <path id="house-to-grid" d="M 0 10 L 90 10 Q 100 10 100 20 L 100 40 Q 100 50 110 50 L 350 50"
-                stroke="url(#gradient)" fill="none" stroke-width="20px" />
-        </svg>
-    </div>
+    <svg id="svg-path" width="800px" height="350px" viewBox="0 10 350 50" class="path"
+        preserveAspectRatio="xMidYMid meet">
+        <defs>
+            <linearGradient id="gradient" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+                <stop offset="0%" style="stop-color: #909090; stop-opacity: 1" />
+                <stop offset="30%" style="stop-color: #595959; stop-opacity: 1" />
+                <stop offset="60%" style="stop-color: #595959; stop-opacity: 1" />
+                <stop offset="100%" style="stop-color: #909090; stop-opacity: 1" />
+            </linearGradient>
+            <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+                <feDropShadow dx="2" dy="4" stdDeviation="3" flood-color="black" flood-opacity="0.5"/>
+            </filter>
+        </defs>
+        <path id="house-to-grid" d="M 0 10 L 90 10 Q 100 10 100 20 L 100 40 Q 100 50 110 50 L 280 50"
+            stroke="url(#gradient)" fill="none" stroke-width="20px" filter="url(#shadow)"/>
+    </svg>
     <div id="heco-meter">
         <!-- <img src="assets/images/energy-meter/meter.png" alt="Energy Meter" id="heco-meter-img" /> -->
         <div id="heco-meter-cost"><span id="energy-cost" [innerText]="energyCostString" #energy_cost_span></span></div>
@@ -24,7 +25,7 @@
         <div id="heco-meter-text"><span id="energy-value" [innerText]="energyValueString"
                 #energy_value_span></span><span id="energy-unit">kWh</span></div>
     </div>
-    <div>
+    <div id="grid">
         <img src="assets/images/energy-meter/grid.png" alt="grid" id="grid-img" />
     </div>
 </div>

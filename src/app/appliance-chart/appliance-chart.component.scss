@@ -1,12 +1,17 @@
 .chart-container {
-  width: 80%;
-  height: 300px;
-  padding: 15px;
+  width: 50%;
+  height: 40vh;
+  padding-bottom: 10px;
+  padding-right: 12px;
+  padding-top: 0.2vh;
   border-radius: 8px;
   color: white;
   position: absolute;
-  top: 65%;
-  left: 10%;
+  top: 2%;
+  right: 1%;
+  background-color: rgba(77,77,77, 0.7);
+  border-radius: 20px;
+  box-shadow: 5px 5px 10px 5px rgba(0, 0, 0, 0.5);
 }
 
 canvas {
