@@ -1,7 +1,7 @@
-<div>
+<div [ngClass]="backgroundClass">
   <img src="assets/images/background.png" alt="Background" id="background">
   <app-energy-meter></app-energy-meter>
-  <app-day-night-slider></app-day-night-slider>
+  <app-day-night-slider (timeOfDayChange)="onTimeOfDayChange($event)"></app-day-night-slider>
   <app-house (itemToggled)="onItemToggled($event)"></app-house>
   <app-appliance-chart></app-appliance-chart>
   <app-lightbulb [itemToggled] = "itemToggled"></app-lightbulb>

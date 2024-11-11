@@ -1,12 +1,19 @@
 <p>day-night-slider works!</p>
-<div class="slider-wrapper">
-    <div class="slider-layout" style="height: 600px">
-        <div class="slider-container" style="height: 100%; display: flex; align-items: center;">
-            <ngx-slider [(value)]="daytimeSlider.value" [options]="daytimeSlider.options"></ngx-slider>
-            <div class="daytime-images">
-                <img src="assets/images/sky/day.PNG" alt="Morning Sun" class="morning">
-                <img src="assets/images/sky/evening.PNG" alt="Evening Sun" class="evening">
-                <img src="assets/images/sky/night.PNG" alt="Night Moon" class="night">
+<!-- <div [ngClass]="getTimeOfDayClass()" class="screen"> -->
+<div [ngClass]="getTimeOfDayClass()" class="screen">
+    <div class="slider-wrapper">
+        <div class="slider-layout" style="height: 550px">
+            <div class="slider-container" style="height: 100%; display: flex; align-items: center;">
+                <ngx-slider [(value)]="daytimeSlider.value" [options]="daytimeSlider.options" class="dnslider"
+                    (valueChange)="onSliderChange($event)"></ngx-slider>
+                <div class="daytime-images">
+                    <img src="assets/images/sky/day.PNG" alt="Morning Sun" class="morning"
+                        [ngClass]="{'show': timeOfDay === 2}">
+                    <img src="assets/images/sky/evening.PNG" alt="Evening Sun" class="evening"
+                        [ngClass]="{'show': timeOfDay === 1}">
+                    <img src="assets/images/sky/night.PNG" alt="Night Moon" class="night"
+                        [ngClass]="{'show': timeOfDay === 0}">
+                </div>
             </div>
         </div>
     </div>

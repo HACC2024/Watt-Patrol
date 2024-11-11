@@ -1,5 +1,24 @@
 #background {
     width: 100vw;
+    z-index: -2;
+}
+
+// day night slider code
+.day-mode {
+    background: linear-gradient(to top, #499724 50%, #bae7f9 0%);
+    transition: background 0.5s ease-in-out;
+}
+
+.evening-mode {
+    background: linear-gradient(to top, #ffb347 50%, #ffcc66 0%);
+    /* Warm tones for evening */
+    transition: background 0.5s ease-in-out;
+}
+
+.night-mode {
+    background: linear-gradient(to top, #1b2735 50%, #2c3e50 0%);
+    /* Darker tones for night */
+    transition: background 0.5s ease-in-out;
 }
 
 div {
