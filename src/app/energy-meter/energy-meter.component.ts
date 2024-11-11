@@ -76,21 +76,25 @@ export class EnergyMeterComponent implements AfterViewInit, OnChanges {
       }
     }
 
-    if (this.itemToggled !== undefined) {
-      if (typeof this.itemToggled == "string") {
-        let itemKey = this.itemToggled.slice(0, -4);
-        if (this.itemsMap.has(itemKey)) {
-          this.energyValue -= this.itemsMap.get(itemKey) ?? 0;
-          this.itemsMap.delete(this.itemToggled);
+    console.log("changes", changes);
+
+    if (changes['itemToggled'] !== undefined) {
+      if (this.itemToggled !== undefined) {
+        if (typeof this.itemToggled == "string") {
+          let itemKey = this.itemToggled.slice(0, -4);
+          if (this.itemsMap.has(itemKey)) {
+            this.energyValue -= this.itemsMap.get(itemKey) ?? 0;
+            this.itemsMap.delete(this.itemToggled);
+          }
         }
-      }
-
-      if (typeof this.itemToggled == "object") {
-        this.itemsMap.set(this.itemToggled["name"], this.itemToggled["daily-kWh"]);
-        this.energyValue += this.itemToggled["daily-kWh"];
-      }
-
-      this.renderEnergyValue();
+  
+        if (typeof this.itemToggled == "object") {
+          this.itemsMap.set(this.itemToggled["name"], this.itemToggled["daily-kWh"]);
+          this.energyValue += this.itemToggled["daily-kWh"];
+        }
+  
+        this.renderEnergyValue();
+      }  
     }
 
     this.energyCost = this.rate! * this.energyValue;
