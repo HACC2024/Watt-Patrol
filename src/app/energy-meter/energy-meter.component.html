@@ -14,6 +14,8 @@
     </div>
     <div id="heco-meter">
         <img src="assets/images/energy-meter/meter.png" alt="Energy Meter" id="heco-meter-img" />
+        <div id="heco-meter-cost"><span id="energy-cost" [innerText]="energyCostString" #energy_cost_span></span></div>
+        <div id="heco-rate"><span id="energy-rate" [innerText]="rate" #energy_rate_span></span><span id="energy-rate-unit">cents/kWh</span></div>
         <div id="heco-meter-text"><span id="energy-value" [innerText]="energyValueString" #energy_value_span></span><span id="energy-unit">kWh</span></div>
     </div>
     <div>

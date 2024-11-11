@@ -13,6 +13,8 @@ export class EnergyMeterComponent implements AfterViewInit, OnChanges {
   public rate? : number;
   public energyValue: number = 0;
   public energyValueString: string = this.energyValue.toString().padStart(6, '0') + '&nbsp;';
+  public energyCost: number = 0;
+  public energyCostString: string = "0.0¢ "
   private delay: number = -1; // initial delay between each circle
   private duration: number = 4000; // initial duration for each circle’s animation
   private circleRadius: number = 8;
@@ -58,18 +60,19 @@ export class EnergyMeterComponent implements AfterViewInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['timeOfDay'] !== undefined) {
-      // 
+      
+      //Rates: Cents/kWh 
       if (this.timeOfDay == 0) {
         // Night time
-        this.rate = 34.8430;
+        this.rate = 41.3998;
       }
       if (this.timeOfDay == 1) {
         // Evening time
-        this.rate = 52.2645;
+        this.rate = 62.0997;
       }
       if (this.timeOfDay == 2) {
         // Day time
-        this.rate = 17.4215;
+        this.rate = 20.6999;
       }
     }
 
@@ -89,6 +92,12 @@ export class EnergyMeterComponent implements AfterViewInit, OnChanges {
 
       this.renderEnergyValue();
     }
+
+    this.energyCost = this.rate! * this.energyValue;
+    console.log(this.rate, " * ", this.energyValue, " = ", this.energyCost);
+    this.energyCostString = this.energyCost.toString();
+
+    console.log("time of day and rate", this.timeOfDay, this.rate)
   }
 
   ngAfterViewInit(): void {
