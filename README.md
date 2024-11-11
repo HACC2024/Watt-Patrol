@@ -1,26 +1,50 @@
 # WattPatrol
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.9.
+This project is for the Hawaii Keiki Museum (HKM) Energy Usage Display for the 2024 Hawaii Hackathon. It is an interactive web application designed to educate Hawai'i's keiki about household energy consumption and conservation. Generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.9, this prototype provides an engaging and educational experience for the keiki as they explore energy usage in a household.
 
-## Development server
+Children can toggle various household appliances—such as lights, fans, a refrigerator, TV, and air conditioner—on or off to see how much energy each one uses. As appliances are switched on, energy usage is tracked in real-time and displayed through a dynamic energy meter.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+The application includes sound effects and a lightbulb friend that gives out helpful tip and fun facts, making it fun and engaging. If too many appliances are left running simultaneously, the energy meter will show an overload, encouraging children to make smarter energy decisions. This immersive experience teaches keiki about energy efficiency, the importance of mindful consumption, and the role of renewable energy in maintaining a sustainable future.
 
-## Code scaffolding
+<img src="/src/assets/images/preview.gif" />
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+# Installation Guide
 
-## Build
+### System Requirements
+- Node.js 18.17 or later
+- npm (Node Package Manager)
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Steps to Clone and Set Up the Angular App
 
-## Running unit tests
+### Clone the Repository
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+    git clone https://github.com/HACC2024/Watt-Patrol.git
 
-## Running end-to-end tests
+### Navigate to the Project Directory
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+    cd Watt-Patrol
+
+### Install Dependencies
+
+    npm install
+
+### Run the Development Server
+
+Start the Angular app in development mode:
+
+
+    ng serve 
+
+
+### Access the App
+
+Open your browser and navigate to:
+    
+    http://localhost:4200
+
+### Terminating the App
+
+To stop the development server, press Ctrl + C.
 
 ## Further help
 

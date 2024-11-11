@@ -62,7 +62,7 @@ export class LightbulbComponent implements OnInit, OnChanges {
       const select = Math.floor(Math.random() * itemMessagesAudios.length);
       this.msg = itemMessagesAudios[select].msg;
       this.showMsg = true;
-      // itemMessagesAudios[select].audio?.play();
+      itemMessagesAudios[select].audio?.play();
 
       setTimeout(() => {
         this.showMsg = false;
@@ -79,7 +79,7 @@ export class LightbulbComponent implements OnInit, OnChanges {
     if (!this.showMsg) {
       this.msg = idleMessages[select].msg;
       this.showMsg = true;
-      // idleMessages[select].audio?.play();
+      idleMessages[select].audio?.play();
 
       setTimeout(() => {
         this.showMsg = false;
