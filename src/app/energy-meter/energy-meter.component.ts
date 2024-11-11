@@ -16,7 +16,7 @@ export class EnergyMeterComponent implements AfterViewInit, OnChanges {
   }
   @Input() timeOfDay: number = 2;
 
-  public rate? : number;
+  public rate : number = 0;
   public energyValue: number = 0;
   public energyValueString: string = this.energyValue.toString().padStart(6, '0') + '&nbsp;';
   public energyCost: number = 0;
@@ -45,21 +45,28 @@ export class EnergyMeterComponent implements AfterViewInit, OnChanges {
     this.itemsMap = new Map<string, number>();
   }
 
+  isCloseToZero(value: number, tolerance: number = 0.0001): boolean {
+    return Math.abs(value) < tolerance;
+  }
+
   renderEnergyValue(): void {
     const threshold = 15.67; 
-
-    if (this.energyValue == 0) {
+    
+    if (this.isCloseToZero(this.energyValue)) {
       this.energyValue = 0;
       this.delay = -1;
     } else {
       let scaleFactor = 0.4 + (0.6 * (this.max_kWh - this.energyValue) / this.max_kWh);
       this.delay = 800 * scaleFactor;
     }
-
+    
     if (this.energyValue >= threshold) {
       this.turnEverythingOff(); 
       return; 
     }
+
+    console.log(this.energyValue);
+    console.log(this.delay);
     /** 
      * If we ever want to add blinking error effect for some cases:
      * if (condition) {
@@ -70,7 +77,33 @@ export class EnergyMeterComponent implements AfterViewInit, OnChanges {
     */
 
     this.energyValueString = (this.energyValue < 0 ? '-' : ' ') + Math.abs(this.energyValue).toFixed(4).toString().padStart(7, '0');
+
+    this.energyCost = this.energyValue * this.rate!;
+    this.energyCostString = this.formatCost(this.energyCost);
   }
+
+  // Function to convert the cost to a readable string (in cents or dollars)
+  formatCost(costInCents: number) {
+    // Round small values near zero down to 0
+    if (Math.abs(costInCents) < 0.01) {
+      costInCents = 0;
+    } else {
+      // Round up to the nearest cent
+      costInCents = Math.ceil(costInCents);
+    }
+
+    if (costInCents >= 100) {
+      // If 100 cents or more, convert to dollars and cents
+      let dollars = Math.floor(costInCents / 100); // Calculate dollars
+      let cents = costInCents % 100; // Calculate remaining cents
+      return `$${dollars}.${cents.toString().padStart(2, '0')}`; // Format as dollars and cents
+    } else if (costInCents < 0) {
+      return "0¢";
+    } else {
+      return `${costInCents}¢`; // Return as cents if less than 100
+    }
+  }
+
 
   onTimeOfDayChange(event: number): void {
       this.timeOfDay = event;
