@@ -1,5 +1,5 @@
-import { AfterViewInit, Component, EventEmitter, Inject, Output } from '@angular/core';
-import { Options, AllowUnsafeHtmlInSlider } from '@angular-slider/ngx-slider';
+import { AfterViewInit, Component, EventEmitter, Output } from '@angular/core';
+import { Options } from '@angular-slider/ngx-slider';
 
 interface SimpleSliderModel {
   value: number;
@@ -35,6 +35,7 @@ export class DayNightSliderComponent implements AfterViewInit{
       ],
       hideLimitLabels: true,
       hidePointerLabels: true,
+      animateOnMove: true,
     }
   };
 

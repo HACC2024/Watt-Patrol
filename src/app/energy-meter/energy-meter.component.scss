@@ -23,11 +23,19 @@
 #heco-meter {
   position: relative;
   margin-left: -40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  background-image: url('../../assets/images/energy-meter/meter.png');
+  background-size: cover;
+  height: 200px;
+  width: 200px;
 }
 
-#heco-meter-img {
-  height: 200px;
-}
+// #heco-meter-img {
+//   height: 200px;
+// }
 
 #heco-meter-text {
   font-size: 21px;
@@ -42,21 +50,13 @@
 #heco-meter-cost {
   font-size: 24px;
   color: #000;
-  margin: 0;
-  top: 10%;
-  left: 45%;
-  position: absolute;
-  font-family: 'Comic Sans MS', sans-serif;
+  margin: 20px 0 0 0;
 }
 
 #heco-rate {
   font-size: 14px;
   color: #000;
   margin: 0;
-  top: 23%;
-  left: 25%;
-  position: absolute;
-  font-family: 'Comic Sans MS', sans-serif;
 }
 
 #energy-unit {
@@ -68,6 +68,18 @@
 #grid-img {
   height: 200px;
   padding-left: 120px;
+}
+
+#energy-rate {
+  font-family: "digital";
+}
+
+#energy-rate-unit {
+  font-family:'Courier New', Courier, monospace
+}
+
+#energy-cost {
+  font-family: "digital";
 }
 
 .blink {

@@ -65,8 +65,6 @@ export class EnergyMeterComponent implements AfterViewInit, OnChanges {
       return; 
     }
 
-    console.log(this.energyValue);
-    console.log(this.delay);
     /** 
      * If we ever want to add blinking error effect for some cases:
      * if (condition) {
@@ -141,7 +139,6 @@ export class EnergyMeterComponent implements AfterViewInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['itemToggled']) {
-      console.log("Item changed:", this.itemToggled);
       this.onItemToggled(this.itemToggled);
     }
     if (changes['timeOfDay']) {

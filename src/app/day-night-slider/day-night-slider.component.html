@@ -1,7 +1,7 @@
 <div class="slider-wrapper">
     <div class="slider-layout" style="height: 70vh">
         <div class="slider-container" style="height: 100%; display: flex; align-items: center;">
-            <ngx-slider [(value)]="daytimeSlider.value" [options]="daytimeSlider.options" (valueChange)="onValueChange($event)"></ngx-slider>
+            <ngx-slider #slider [(value)]="daytimeSlider.value" [options]="daytimeSlider.options" (valueChange)="onValueChange($event)"></ngx-slider>
         </div>
     </div>
 </div>
