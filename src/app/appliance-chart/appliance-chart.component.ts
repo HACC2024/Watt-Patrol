@@ -41,7 +41,7 @@ export class ApplianceChartComponent implements AfterViewInit {
         this.images.forEach((img, index) => {
           const x = xAxis.getPixelForValue(index);
           const y = chart.height - 40;
-          ctx.drawImage(img, x - 15, y, 30, 30);
+          ctx.drawImage(img, x-50, y-40, 80, 80);
         });
       }
     };
@@ -52,7 +52,6 @@ export class ApplianceChartComponent implements AfterViewInit {
         labels: this.labels,
         datasets: [
           {
-            label: 'Daily Power Consumption (kWh)',
             data: this.data,
             backgroundColor: [
               'blue', 'green', 'red', 'purple', 'orange', 'cyan', 'magenta', 'yellow', 'pink'
@@ -65,7 +64,7 @@ export class ApplianceChartComponent implements AfterViewInit {
         maintainAspectRatio: false,
         layout: {
           padding: {
-            bottom: 40
+            bottom: 80
           }
         },
         scales: {
@@ -83,7 +82,6 @@ export class ApplianceChartComponent implements AfterViewInit {
             beginAtZero: true,
             title: {
               display: true,
-              text: 'Daily Power Consumption (kWh)'
             }
           }
         }
