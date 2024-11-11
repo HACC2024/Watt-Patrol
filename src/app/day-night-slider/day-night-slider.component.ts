@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Inject, Output } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Inject, Output } from '@angular/core';
 import { Options, AllowUnsafeHtmlInSlider } from '@angular-slider/ngx-slider';
 
 interface SimpleSliderModel {
@@ -11,10 +11,14 @@ interface SimpleSliderModel {
   templateUrl: './day-night-slider.component.html',
   styleUrl: './day-night-slider.component.scss'
 })
-export class DayNightSliderComponent {
+export class DayNightSliderComponent implements AfterViewInit{
   @Output() timeValue: EventEmitter<number> = new EventEmitter<number>();
   // 2 = day, 1 = evening, 0 = night -> default is day
   public timeOfDay: number = 2;
+
+  ngAfterViewInit() {
+    this.timeValue.emit(this.timeOfDay);
+  }
   
   daytimeSlider: SimpleSliderModel = {
     value: this.timeOfDay,

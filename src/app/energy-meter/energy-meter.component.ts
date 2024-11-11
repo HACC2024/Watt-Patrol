@@ -1,6 +1,5 @@
-import { Component, AfterViewInit, ElementRef, Renderer2, ViewChild, Input, OnChanges, EventEmitter, Output } from '@angular/core';
+import { Component, AfterViewInit, ElementRef, Renderer2, ViewChild, Input, OnChanges, EventEmitter, Output, SimpleChanges } from '@angular/core';
 import * as applianceEnergy from '../house/applianceEnergy.json';
-import { Options } from '@angular-slider/ngx-slider';
 
 @Component({
   selector: 'app-energy-meter',
@@ -8,8 +7,15 @@ import { Options } from '@angular-slider/ngx-slider';
   styleUrl: './energy-meter.component.scss'
 })
 export class EnergyMeterComponent implements AfterViewInit, OnChanges {
-  @Input() itemToggled: any;
+  @Input() set itemToggled(emitter: EventEmitter<any>) {
+    if(emitter) {
+      emitter.pipe().subscribe((event: any) => {
+        this.onItemToggled(event);
+      });
+    }
+  }
   @Input() timeOfDay: number = 2;
+
   public rate? : number;
   public energyValue: number = 0;
   public energyValueString: string = this.energyValue.toString().padStart(6, '0') + '&nbsp;';
@@ -22,7 +28,6 @@ export class EnergyMeterComponent implements AfterViewInit, OnChanges {
   private itemsMap: Map<string, number>
   private lastTimestamp: number = 0; // initial delay between each circle
   private lastDirection: number = 1; // initial direction of the last circle 1 = forward, -1 = backward
-  private clear: Boolean = false;
 
   private max_kWh: number = (applianceEnergy as any).default.reduce((acc: number, curr: any) => {
     if (curr["daily-kWh"] > 0) {
@@ -39,7 +44,7 @@ export class EnergyMeterComponent implements AfterViewInit, OnChanges {
   }
 
   renderEnergyValue(): void {
-    const threshold = 5.67; 
+    const threshold = 15.67; 
 
     if (this.energyValue == 0) {
       this.energyValue = 0;
@@ -65,9 +70,9 @@ export class EnergyMeterComponent implements AfterViewInit, OnChanges {
     this.energyValueString = (this.energyValue < 0 ? '-' : ' ') + Math.abs(this.energyValue).toFixed(4).toString().padStart(7, '0');
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['timeOfDay'] !== undefined) {
-      // 
+  onTimeOfDayChange(event: number): void {
+      this.timeOfDay = event;
+
       if (this.timeOfDay == 0) {
         // Night time
         this.rate = 34.8430;
@@ -80,23 +85,32 @@ export class EnergyMeterComponent implements AfterViewInit, OnChanges {
         // Day time
         this.rate = 17.4215;
       }
+  }
+
+  onItemToggled(event: any): void {
+    if (typeof event == "string") {
+      let itemKey = event.slice(0, -4);
+      if (this.itemsMap.has(itemKey)) {
+        this.energyValue -= this.itemsMap.get(itemKey) ?? 0;
+        this.itemsMap.delete(event);
+      }
     }
 
-    if (this.itemToggled !== undefined) {
-      if (typeof this.itemToggled == "string") {
-        let itemKey = this.itemToggled.slice(0, -4);
-        if (this.itemsMap.has(itemKey)) {
-          this.energyValue -= this.itemsMap.get(itemKey) ?? 0;
-          this.itemsMap.delete(this.itemToggled);
-        }
-      }
+    if (typeof event == "object") {
+      this.itemsMap.set(event["name"], event["daily-kWh"]);
+      this.energyValue += event["daily-kWh"];
+    }
 
-      if (typeof this.itemToggled == "object") {
-        this.itemsMap.set(this.itemToggled["name"], this.itemToggled["daily-kWh"]);
-        this.energyValue += this.itemToggled["daily-kWh"];
-      }
+    this.renderEnergyValue();
+  }
 
-      this.renderEnergyValue();
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['itemToggled']) {
+      console.log("Item changed:", this.itemToggled);
+      this.onItemToggled(this.itemToggled);
+    }
+    if (changes['timeOfDay']) {
+      this.onTimeOfDayChange(this.timeOfDay);
     }
   }
 
@@ -109,18 +123,10 @@ export class EnergyMeterComponent implements AfterViewInit, OnChanges {
   }
 
   private createCircle(): void {
-    console.log("creating circle")
     const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle") as SVGCircleElement;
     circle.setAttribute("r", this.circleRadius.toString());
     circle.setAttribute("fill", "transparent")
     this.svg.appendChild(circle);
-
-    // circle.addEventListener('animationend', function() {
-    //   circle.remove();  // Remove the circle from the DOM
-    // });
-    // circle.removeAttribute()
-    // animateMotion.beginElement();
-
     this.animateCircle(circle);
   }
 
@@ -160,20 +166,11 @@ export class EnergyMeterComponent implements AfterViewInit, OnChanges {
   }
 
   private turnEverythingOff(): void {
-    // Only remove active animations if needed
-    // if (this.svg.children.length > 0) {
-    //   while (this.svg.firstChild) {
-    //     this.svg.removeChild(this.svg.firstChild);
-    //   }
-    // }
-    
     this.turnOffAll.emit();
-    this.clear = true;
 
     this.energyValue = 0;
     this.itemsMap = new Map<string, number>();
 
-    console.log('energy value', this.energyValue)
-    console.log('Energy threshold reached. All appliances have been turned off.');
+    this.renderEnergyValue();
   }
 }

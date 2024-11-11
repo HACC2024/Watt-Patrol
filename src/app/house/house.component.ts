@@ -306,32 +306,23 @@ export class HouseComponent implements OnInit {
 
   }
 
-  toggleSolarPanel(e: any) {
-    const element = e.target;
-    this.isSolarPanelOn = !this.isSolarPanelOn;
-    this.solarPanelToggled.emit(this.isSolarPanelOn);
-  }
-
   // Gets a daily kWh consumption for the appliance toggled.
   getEnergyConsumption(applianceId: string) {
-    // console.log(this.applianceEnergy);
     return this.applianceEnergy.find((appliance: any) => appliance.name === applianceId);
   }
 
   turnOffAllAppliances(): void {
-    console.log("turn off all")
+    this.isRefrigeratorOn = false; 
+    this.isWasherOn = false;
+    this.isDryerOn = false;
+    this.isACOn = false;
+    this.isOvenOn = false;
+    this.isLightOn = false;
+    this.isTVOn = false; 
+    this.isCeilingFanOn = false;
+    this.isPorchLightOn = false;
+    this.isSolarPanelOn = false;
 
-    this.applianceEnergy.forEach((appliance: any) => {
-      const applianceElement = document.getElementById(appliance.name);
-      if (applianceElement && applianceElement.classList.contains('active')) {
-        applianceElement.classList.remove('active');
-        const glowElement = applianceElement.previousElementSibling;
-        if (glowElement) {
-          glowElement.classList.remove('active');
-        }
-        this.itemToggled.emit(appliance.name.concat("-off"));
-      }
-    });
     console.log('All appliances have been turned off.');
   }
 }
