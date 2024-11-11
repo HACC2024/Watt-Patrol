@@ -118,6 +118,9 @@ export class EnergyMeterComponent implements AfterViewInit, OnChanges {
         // Day time
         this.rate = 20.6999;
       }
+
+      this.energyCost = this.energyValue * this.rate!;
+      this.energyCostString = this.formatCost(this.energyCost);
   }
 
   onItemToggled(event: any): void {
