@@ -10,7 +10,7 @@ import { Options } from '@angular-slider/ngx-slider';
 export class EnergyMeterComponent implements AfterViewInit, OnChanges {
   @Input() itemToggled: any;
   @Input() timeOfDay: number = 2;
-  public rate? : number;
+  public rate?: number;
   public energyValue: number = 0;
   public energyValueString: string = this.energyValue.toString().padStart(6, '0') + '&nbsp;';
   public energyCost: number = 0;
@@ -31,9 +31,9 @@ export class EnergyMeterComponent implements AfterViewInit, OnChanges {
     }
     return acc;
   }, 0);
-  
+
   @ViewChild('energy_value_span') energyValueSpan!: ElementRef;
-  
+
   constructor(private renderer: Renderer2, private elRef: ElementRef) {
     this.itemsMap = new Map<string, number>();
   }
@@ -60,7 +60,7 @@ export class EnergyMeterComponent implements AfterViewInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['timeOfDay'] !== undefined) {
-      
+
       //Rates: Cents/kWh 
       if (this.timeOfDay == 0) {
         // Night time
@@ -94,11 +94,31 @@ export class EnergyMeterComponent implements AfterViewInit, OnChanges {
     }
 
     this.energyCost = this.rate! * this.energyValue;
-    console.log(this.rate, " * ", this.energyValue, " = ", this.energyCost);
-    this.energyCostString = this.energyCost.toString();
-
-    console.log("time of day and rate", this.timeOfDay, this.rate)
+    this.energyCostString = this.formatCost(this.energyCost);
   }
+
+  // Function to convert the cost to a readable string (in cents or dollars)
+  formatCost(costInCents: number) {
+    // Round small values near zero down to 0
+    if (Math.abs(costInCents) < 0.01) {
+      costInCents = 0;
+    } else {
+      // Round up to the nearest cent
+      costInCents = Math.ceil(costInCents);
+    }
+
+    if (costInCents >= 100) {
+      // If 100 cents or more, convert to dollars and cents
+      let dollars = Math.floor(costInCents / 100); // Calculate dollars
+      let cents = costInCents % 100; // Calculate remaining cents
+      return `$${dollars}.${cents.toString().padStart(2, '0')}`; // Format as dollars and cents
+    } else if (costInCents < 0) {
+      return "0¢";
+    } else {
+      return `${costInCents}¢`; // Return as cents if less than 100
+    }
+  }
+
 
   ngAfterViewInit(): void {
     this.svg = this.elRef.nativeElement.querySelector('svg') as SVGSVGElement;
@@ -141,7 +161,7 @@ export class EnergyMeterComponent implements AfterViewInit, OnChanges {
         circle.setAttribute("cy", point.y.toString());
         circle.setAttribute("fill", "#ff0");
         requestAnimationFrame(moveCircle);
-      } else{
+      } else {
         this.svg.removeChild(circle); // Remove the circle once animation is done
       }
     };
@@ -154,7 +174,7 @@ export class EnergyMeterComponent implements AfterViewInit, OnChanges {
       this.createCircle();
       this.lastTimestamp = timestamp;
     }
-    
+
     requestAnimationFrame(() => this.startAnimationFlow(performance.now()));
   }
 }
