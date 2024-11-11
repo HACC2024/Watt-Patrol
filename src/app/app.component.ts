@@ -32,9 +32,9 @@ export class AppComponent {
         case 1:
           return '#ffcc66';
         case 2:
-          return '#bae7f9';
+          return '#9ed5eb';
         default:
-          return '#bae7f9';
+          return '#9ed5eb';
       }
     }
 

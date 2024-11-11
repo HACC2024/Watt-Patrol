@@ -12,15 +12,17 @@ html, body {
     position: absolute;
     height: 100%;
     width: 100%;
+
 }
 
 body {
     display: inline-block;
     overflow: hidden;
-    background-color: #bae7f9;
+    background-color: #9ed5eb;
     background-image: url('assets/images/background.png');
     background-size: cover;
     background-repeat: no-repeat;
+    transition: background-color 1s ease;
 }
 
 img {
@@ -29,16 +31,27 @@ img {
 
 .time-images {
     margin: -15px -18px -10px 0;
-    width: 50px; // Size the images
+    width: 11vh;
     height: auto; // Keep aspect ratio
 }
 
-.time-ranges {
+.time-title {
     display: flex;
     flex-direction: column;
     justify-content: center;
     margin-right: -10px;
     font-family: 'Comic Sans MS', sans-serif;
+    text-wrap: wrap;
+    font-size: 1.20rem;
+}
+
+.time-range {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-right: -10px;
+    font-family: 'Comic Sans MS', sans-serif;
+    font-size: 1.1rem;
 }
 
 // .ngx-slider .ngx-slider-tick {

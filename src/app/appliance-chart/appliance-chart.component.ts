@@ -1,6 +1,7 @@
 import { Component, AfterViewInit } from '@angular/core';
 import Chart from 'chart.js/auto';
 import applianceEnergy from './applianceEnergy.json';  // Static import of JSON data
+import { color } from 'chart.js/helpers';
 
 @Component({
   selector: 'app-appliance-chart',
@@ -12,7 +13,7 @@ export class ApplianceChartComponent implements AfterViewInit {
   private labels: string[] = applianceEnergy.map((e: any) => this.toTitleCase(e.name));
 
   toTitleCase(str: string): string {
-    if(str.length === 2) {
+    if (str.length === 2) {
       return str.toUpperCase();
     } else {
       return str.replace(/-/g, ' ').replace(/\b\w/g, (char) => char.toUpperCase());
@@ -41,7 +42,16 @@ export class ApplianceChartComponent implements AfterViewInit {
         this.images.forEach((img, index) => {
           const x = xAxis.getPixelForValue(index);
           const y = chart.height - 40;
-          ctx.drawImage(img, x-50, y-40, 80, 80);
+          console.log(img)
+          if (img.src.includes("tv")) {
+            ctx.drawImage(img, x - 50, y - 40, 100, 70);
+          } else if (img.src.includes("ac")) {
+            ctx.drawImage(img, x - 65, y - 40, 130, 70);
+          } else if (img.src.includes("refrigerator")) {
+            ctx.drawImage(img, x - 35, y - 40, 70, 90);
+          } else {
+            ctx.drawImage(img, x - 35, y - 40, 70, 70);
+          }
         });
       }
     };
@@ -72,18 +82,34 @@ export class ApplianceChartComponent implements AfterViewInit {
             beginAtZero: true,
             title: {
               display: false,
-              text: 'Appliance'
+              color: '#c4c4c4',
             },
             ticks: {
-              display: false
+              display: false,
+              color: '#c4c4c4',
+            },
+            grid: { 
+              color: '#c4c4c4',
+              tickColor: '#c4c4c4'
             }
           },
           y: {
             beginAtZero: true,
             title: {
-              display: true,
-            }
+              display: false,
+            },
+            grid: { 
+              color: '#c4c4c4',
+              tickColor: '#c4c4c4'
+
+            },
+            ticks: {
+              color: '#c4c4c4',
+            },
           }
+        },
+        plugins: {
+          legend: { display: false }
         }
       },
       plugins: [imagePlugin]
