@@ -41,11 +41,12 @@ export class ApplianceChartComponent implements AfterViewInit {
           const x = xAxis.getPixelForValue(index);
           const y = chart.height - 40;
           const img = imgRef.nativeElement;
-          if (img.src.includes("tv")) {
+          const img_source = img.src.split('/').pop();
+          if (img_source.includes("tv")) {
             ctx.drawImage(img, xAxis.getPixelForValue(index) - (80/2), y - 40, 80, 50);
-          } else if (img.src.includes("ac")) {
+          } else if (img_source.includes("ac")) {
             ctx.drawImage(img, xAxis.getPixelForValue(index) - (90/2), y - 40, 90, 60);
-          } else if (img.src.includes("refrigerator")) {
+          } else if (img_source.includes("refrigerator")) {
             ctx.drawImage(img, xAxis.getPixelForValue(index) - (60/2), y - 40, 60, 80);
           } else {
             ctx.drawImage(img, xAxis.getPixelForValue(index) - (60/2), y - 40, 60, 60);
