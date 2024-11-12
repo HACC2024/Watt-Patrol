@@ -1,4 +1,4 @@
-import { Component, AfterViewInit } from '@angular/core';
+import { Component, AfterViewInit, ViewChildren, QueryList, ElementRef } from '@angular/core';
 import Chart from 'chart.js/auto';
 import applianceEnergy from './applianceEnergy.json';  // Static import of JSON data
 import { color } from 'chart.js/helpers';
@@ -9,8 +9,11 @@ import { color } from 'chart.js/helpers';
   styleUrls: ['./appliance-chart.component.scss']
 })
 export class ApplianceChartComponent implements AfterViewInit {
+  @ViewChildren('imgElement') images?: QueryList<ElementRef>;
   chart: any;
   private labels: string[] = applianceEnergy.map((e: any) => this.toTitleCase(e.name));
+
+  constructor() {}
 
   toTitleCase(str: string): string {
     if (str.length === 2) {
@@ -21,11 +24,6 @@ export class ApplianceChartComponent implements AfterViewInit {
   }
 
   private data: number[] = applianceEnergy.map((e: any) => e['daily-kWh']);
-  private images: HTMLImageElement[] = applianceEnergy.map((e: any) => {
-    const img = new Image();
-    img.src = e.imageUrl;
-    return img;
-  });
 
   ngAfterViewInit(): void {
     setTimeout(() => {
@@ -39,9 +37,10 @@ export class ApplianceChartComponent implements AfterViewInit {
       afterDraw: (chart: any) => {
         const ctx = chart.ctx;
         const xAxis = chart.scales['x'];
-        this.images.forEach((img, index) => {
+        this.images?.forEach((imgRef, index) => {
           const x = xAxis.getPixelForValue(index);
           const y = chart.height - 40;
+          const img = imgRef.nativeElement;
           if (img.src.includes("tv")) {
             ctx.drawImage(img, xAxis.getPixelForValue(index) - (80/2), y - 40, 80, 50);
           } else if (img.src.includes("ac")) {
