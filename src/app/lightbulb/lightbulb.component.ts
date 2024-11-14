@@ -62,7 +62,7 @@ export class LightbulbComponent implements OnInit, OnChanges {
       const select = Math.floor(Math.random() * itemMessagesAudios.length);
       this.msg = itemMessagesAudios[select].msg;
       this.showMsg = true;
-      itemMessagesAudios[select].audio?.play();
+      // itemMessagesAudios[select].audio?.play();
 
       setTimeout(() => {
         this.showMsg = false;
@@ -79,7 +79,7 @@ export class LightbulbComponent implements OnInit, OnChanges {
     if (!this.showMsg) {
       this.msg = idleMessages[select].msg;
       this.showMsg = true;
-      idleMessages[select].audio?.play();
+      // idleMessages[select].audio?.play();
 
       setTimeout(() => {
         this.showMsg = false;
@@ -89,7 +89,7 @@ export class LightbulbComponent implements OnInit, OnChanges {
 
   cycleIdleMsg() {
     const timeCycle = 1 * 1000;
-    const timeToShow = 30;  // Idle message shows after timeToShow seconds
+    const timeToShow = 60;  // Idle message shows after timeToShow seconds
     var timer = 0;
 
     setInterval(() => {

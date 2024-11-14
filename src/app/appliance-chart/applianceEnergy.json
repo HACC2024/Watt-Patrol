@@ -37,11 +37,11 @@
   {
     "name": "ceiling-fan",
     "daily-kWh": 0.0889,
-    "imageUrl": "assets/images/house/ceilingfan.png"
+    "imageUrl": "assets/images/house/ceiling-fan.png"
   },
   {
     "name": "porch-light",
     "daily-kWh": 0.6083,
-    "imageUrl": "assets/images/house/porchlight.png"
+    "imageUrl": "assets/images/house/porch-light.png"
   }
 ]
