@@ -8,7 +8,7 @@ import * as applianceEnergy from '../house/applianceEnergy.json';
 })
 export class EnergyMeterComponent implements AfterViewInit, OnChanges {
   @Input() set itemToggled(emitter: EventEmitter<any>) {
-    if(emitter) {
+    if (emitter) {
       emitter.pipe().subscribe((event: any) => {
         this.onItemToggled(event);
       });
@@ -16,7 +16,7 @@ export class EnergyMeterComponent implements AfterViewInit, OnChanges {
   }
   @Input() timeOfDay: number = 2;
 
-  public rate : number = 0;
+  public rate: number = 0;
   public energyValue: number = 0;
   public energyValueString: string = this.energyValue.toString().padStart(6, '0') + '&nbsp;';
   public energyCost: number = 0;
@@ -42,7 +42,7 @@ export class EnergyMeterComponent implements AfterViewInit, OnChanges {
 
   @ViewChild('energy_value_span') energyValueSpan!: ElementRef;
   @Output() turnOffAll: EventEmitter<void> = new EventEmitter<void>();
-  
+
   constructor(private renderer: Renderer2, private elRef: ElementRef) {
     this.itemsMap = new Map<string, number>();
   }
@@ -52,8 +52,8 @@ export class EnergyMeterComponent implements AfterViewInit, OnChanges {
   }
 
   renderEnergyValue(): void {
-    const threshold = 15.67; 
-    
+    const threshold = 15.67;
+
     if (this.isCloseToZero(this.energyValue)) {
       this.energyValue = 0;
       this.delay = -1;
@@ -61,15 +61,14 @@ export class EnergyMeterComponent implements AfterViewInit, OnChanges {
       let scaleFactor = 0.4 + (0.6 * (this.max_kWh - this.energyValue) / this.max_kWh);
       this.delay = 800 * scaleFactor;
     }
-    
+
     if (this.energyValue >= threshold) {
 
       this.delay = this.delay * 0.6;
       this.highEnergyAudio.play();
       this.highEnergyAudio.onended = (event) => {
-        console.log("Ended");
-        this.turnEverythingOff(); 
-        return; 
+        this.turnEverythingOff();
+        return;
       }
     } else {
       this.highEnergyAudio.pause();
@@ -115,23 +114,23 @@ export class EnergyMeterComponent implements AfterViewInit, OnChanges {
 
 
   onTimeOfDayChange(event: number): void {
-      this.timeOfDay = event;
+    this.timeOfDay = event;
 
-      if (this.timeOfDay == 0) {
-        // Night time
-        this.rate = 41.3998;
-      }
-      if (this.timeOfDay == 1) {
-        // Evening time
-        this.rate = 62.0997;
-      }
-      if (this.timeOfDay == 2) {
-        // Day time
-        this.rate = 20.6999;
-      }
+    if (this.timeOfDay == 0) {
+      // Night time
+      this.rate = 41.3998;
+    }
+    if (this.timeOfDay == 1) {
+      // Evening time
+      this.rate = 62.0997;
+    }
+    if (this.timeOfDay == 2) {
+      // Day time
+      this.rate = 20.6999;
+    }
 
-      this.energyCost = this.energyValue * this.rate!;
-      this.energyCostString = this.formatCost(this.energyCost);
+    this.energyCost = this.energyValue * this.rate!;
+    this.energyCostString = this.formatCost(this.energyCost);
   }
 
   onItemToggled(event: any): void {
@@ -199,7 +198,7 @@ export class EnergyMeterComponent implements AfterViewInit, OnChanges {
         this.svg.removeChild(circle); // Remove the circle once animation is done
       }
     };
-    
+
     requestAnimationFrame(moveCircle);
   }
 
