@@ -123,6 +123,12 @@
             "file": "tv-1.m4a"
         }
     ],
+    "warning": [
+        {
+            "msg": "We're sure using a lot of energy. We might overload the circuit!",
+            "file": "warning.m4a"
+        }
+    ],
     "washer": [
         {
             "msg": "Washing machines need electricity too!",
