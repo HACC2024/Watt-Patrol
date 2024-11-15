@@ -31,6 +31,8 @@ export class EnergyMeterComponent implements AfterViewInit, OnChanges {
   private lastTimestamp: number = 0; // initial delay between each circle
   private lastDirection: number = 1; // initial direction of the last circle 1 = forward, -1 = backward
 
+  private highEnergyAudio: HTMLAudioElement = new Audio('assets/audio/house/high-energy.wav');
+
   private max_kWh: number = (applianceEnergy as any).default.reduce((acc: number, curr: any) => {
     if (curr["daily-kWh"] > 0) {
       return acc + curr["daily-kWh"];
@@ -61,8 +63,17 @@ export class EnergyMeterComponent implements AfterViewInit, OnChanges {
     }
     
     if (this.energyValue >= threshold) {
-      this.turnEverythingOff(); 
-      return; 
+
+      this.delay = this.delay * 0.6;
+      this.highEnergyAudio.play();
+      this.highEnergyAudio.onended = (event) => {
+        console.log("Ended");
+        this.turnEverythingOff(); 
+        return; 
+      }
+    } else {
+      this.highEnergyAudio.pause();
+      this.highEnergyAudio.currentTime = 0;
     }
 
     /** 
