@@ -101,7 +101,13 @@ export class ApplianceChartComponent implements AfterViewInit {
           y: {
             beginAtZero: true,
             title: {
-              display: false,
+              display: true,
+              text: "Daily kWh Usage",
+              font: {
+                size: 20,
+                family: "Comic Sans MS"
+              },
+              color: '#c4c4c4'
             },
             grid: { 
               // display: false,
@@ -113,6 +119,7 @@ export class ApplianceChartComponent implements AfterViewInit {
               color: '#c4c4c4',
               font: {
                 size: 15,
+                family: "Comic Sans MS"
               }
             },
             border: {
