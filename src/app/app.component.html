@@ -1,7 +1,11 @@
 <div>
-  <app-energy-meter (turnOffAll)="houseComponent.turnOffAllAppliances()" [itemToggled]="houseComponent.itemToggled" [timeOfDay]="time"></app-energy-meter>
+  <app-energy-meter 
+    (turnOffAll)="houseComponent.turnOffAllAppliances()" 
+    (highEnergyWarning)="lightbulbComponent.triggerWarningMsg()"
+    [itemToggled]="houseComponent.itemToggled" [timeOfDay]="time"
+    ></app-energy-meter>
   <app-house #houseComponent (itemToggled)="onItemToggled($event)"></app-house>
   <app-day-night-slider (timeValue)="onTimeChange($event)"></app-day-night-slider>
   <app-appliance-chart></app-appliance-chart>
-  <app-lightbulb [itemToggled]="itemToggled"></app-lightbulb>
+  <app-lightbulb id="lightbulbComponent" #lightbulbComponent [itemToggled]="itemToggled"></app-lightbulb>
 </div>

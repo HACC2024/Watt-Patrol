@@ -102,13 +102,13 @@ export class ApplianceChartComponent implements AfterViewInit {
               display: false,
             },
             grid: { 
-              display: false,
+              // display: false,
               color: '#c4c4c4',
               tickColor: '#c4c4c4'
 
             },
             ticks: {
-              display: false,
+              // display: false,
               color: '#c4c4c4',
             },
             border: {

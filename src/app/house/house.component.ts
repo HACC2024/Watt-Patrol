@@ -49,8 +49,6 @@ export class HouseComponent implements OnInit {
   /* Allows browser to fetch and cache images.*/
   preloadImages() {
     for (const appliance in this.appliances) {
-      if (appliance === "solar-panel") continue;  // Skip solar panel.
-
       const img = new Image();
       img.src = `assets/images/house/${appliance}.png`;
       img.src = `assets/images/house/${appliance}_glow.png`;

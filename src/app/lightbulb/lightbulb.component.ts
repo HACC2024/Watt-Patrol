@@ -14,20 +14,26 @@ interface LightbulbMessageAudio {
 @Component({
   selector: 'app-lightbulb',
   templateUrl: './lightbulb.component.html',
-  styleUrl: './lightbulb.component.scss'
+  styleUrls: ['./lightbulb.component.scss']
 })
 export class LightbulbComponent implements OnInit, OnChanges {
-  @Input() itemToggled: any;
 
+  private delayTime = 1 * 1000; // Delay for message.
+
+  @Input() itemToggled: any;
   showMsg: boolean = false;
 
   private lightbulbMessageAudio: LightbulbMessageAudio = lightbulbMessageAudio;
+  private triggerWarningNext: Boolean = false;
 
   msg = '';
 
+  private audioQueue: HTMLAudioElement[] = [];  // Queue to manage audio playback.
+
   ngOnChanges(): void {
-    // console.log("Testing", lightbulbMessageAudio)
-    if (this.lightbulbMessageAudio[this.itemToggled.name]) this.showApplianceMsg();
+    if (this.lightbulbMessageAudio[this.itemToggled.name]) {
+      this.showApplianceMsg();
+    }
   }
 
   ngOnInit(): void {
@@ -53,37 +59,58 @@ export class LightbulbComponent implements OnInit, OnChanges {
     }
   }
 
+  triggerWarningMsg() {
+    this.triggerWarningNext = true;
+    if (!this.showMsg) {
+      this.playWarningMsg();
+    } 
+  }
+
+
+  playWarningMsg() {
+    const warningMsg = this.lightbulbMessageAudio['warning'][0];
+    this.msg = warningMsg.msg;  // Set the message text
+    this.showMsg = true;  // Show the message
+    warningMsg.audio?.play();
+    warningMsg.audio?.addEventListener('ended', () => {
+      this.triggerWarningNext = false;
+      setTimeout(() => {
+        this.showMsg = false;  // Hide the message after the duration
+      }, this.delayTime);
+    });
+  }
+
   showApplianceMsg() {
     const itemMessagesAudios = this.lightbulbMessageAudio[this.itemToggled.name];
-    const appearTime = 10 * 1000;  // Changes how many seconds the message appears for.
 
-    /* Only change message if not currently showing. */
     if (!this.showMsg) {
       const select = Math.floor(Math.random() * itemMessagesAudios.length);
-      this.msg = itemMessagesAudios[select].msg;
-      this.showMsg = true;
-      // itemMessagesAudios[select].audio?.play();
+      this.msg = itemMessagesAudios[select].msg;  // Set the message text
+      this.showMsg = true;  // Show the message
+      itemMessagesAudios[select].audio?.play();
+      itemMessagesAudios[select].audio?.addEventListener('ended', () => {
+        setTimeout(() => {
+          this.showMsg = false;  // Hide the message after the duration
+        }, this.delayTime);
 
-      setTimeout(() => {
-        this.showMsg = false;
-      }, appearTime)
+        if (this.triggerWarningNext) this.playWarningMsg();  
+      });
     }
   }
 
   showIdleMsg() {
-    const appearTime = 10 * 1000;  // Changes how many seconds the message appears for.
     const idleMessages = this.lightbulbMessageAudio['idle'];
     const select = Math.floor(Math.random() * idleMessages.length);
 
-    /* Only change message if not currently showing. */
     if (!this.showMsg) {
-      this.msg = idleMessages[select].msg;
-      this.showMsg = true;
-      // idleMessages[select].audio?.play();
-
-      setTimeout(() => {
-        this.showMsg = false;
-      }, appearTime)
+      this.msg = idleMessages[select].msg;  // Set the message text
+      this.showMsg = true;  // Show the message
+      idleMessages[select].audio?.play();
+      idleMessages[select].audio?.addEventListener('ended', () => {
+        setTimeout(() => {
+          this.showMsg = false;  // Hide the message after the duration
+        }, this.delayTime);
+      });
     }
   }
 
@@ -104,5 +131,4 @@ export class LightbulbComponent implements OnInit, OnChanges {
       }
     }, timeCycle); // Cycle every 1 second
   }
-
 }

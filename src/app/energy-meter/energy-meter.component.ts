@@ -16,6 +16,9 @@ export class EnergyMeterComponent implements AfterViewInit, OnChanges {
   }
   @Input() timeOfDay: number = 2;
 
+  @Output() turnOffAll: EventEmitter<void> = new EventEmitter<void>();
+  @Output() highEnergyWarning: EventEmitter<Boolean> = new EventEmitter<Boolean>();
+
   public rate: number = 0;
   public energyValue: number = 0;
   public energyValueString: string = this.energyValue.toString().padStart(6, '0') + '&nbsp;';
@@ -41,7 +44,6 @@ export class EnergyMeterComponent implements AfterViewInit, OnChanges {
   }, 0);
 
   @ViewChild('energy_value_span') energyValueSpan!: ElementRef;
-  @Output() turnOffAll: EventEmitter<void> = new EventEmitter<void>();
 
   constructor(private renderer: Renderer2, private elRef: ElementRef) {
     this.itemsMap = new Map<string, number>();
@@ -62,7 +64,9 @@ export class EnergyMeterComponent implements AfterViewInit, OnChanges {
       this.delay = 800 * scaleFactor;
     }
 
+    // When energy value is high.
     if (this.energyValue >= threshold) {
+      this.highEnergyWarning.emit(true);
 
       this.delay = this.delay * 0.6;
       this.highEnergyAudio.play();
