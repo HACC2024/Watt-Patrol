@@ -53,23 +53,11 @@
     ],
     "light": [
         {
-            "msg": "LED lights use less energy.",
-            "file": "light-0.m4a"
-        },
-        {
-            "msg": "LED lights can last for a long time.",
-            "file": "light-1.m4a"
-        },
-        {
             "msg": "Turn off the light when you leave the room to save energy!",
             "file": "light-2.m4a"
         }
     ],
     "oven": [
-        {
-            "msg": "Electric ovens need a lot of energy.",
-            "file": "oven-0.m4a"
-        },
         {
             "msg": "Ovens can be HOT. Do not use the oven without an adult around!",
             "file": "oven-1.m4a"
@@ -115,10 +103,6 @@
     ],
     "tv": [
         {
-            "msg": "Old CRT TVs use more energy than new LED TVs.",
-            "file": "tv-0.m4a"
-        },
-        {
             "msg": "Turn off the TV when you are not watching to save energy!",
             "file": "tv-1.m4a"
         }
@@ -130,10 +114,6 @@
         }
     ],
     "washer": [
-        {
-            "msg": "Washing machines need electricity too!",
-            "file": "washer-0.m4a"
-        },
         {
             "msg": "Washing clothes with hot water uses more energy.",
             "file": "washer-1.m4a"

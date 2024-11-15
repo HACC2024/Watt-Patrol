@@ -63,7 +63,7 @@ export class ApplianceChartComponent implements AfterViewInit {
           {
             data: this.data,
             backgroundColor: [
-              'blue', 'lightgrey', 'red', 'purple', 'orange', 'cyan', 'magenta', 'yellow', 'pink'
+              '#3f51ff', 'lightgrey', '#ff3f3f', '#753bb0', '#ffa93f', '#70b6ee', '#e748ff', 'yellow', '#ff8dcf'
             ]
           }
         ]
@@ -73,7 +73,9 @@ export class ApplianceChartComponent implements AfterViewInit {
         maintainAspectRatio: false,
         layout: {
           padding: {
-            bottom: 80
+            bottom: 80,
+            right: 10,
+            left: 10,
           }
         },
         scales: {
@@ -105,11 +107,13 @@ export class ApplianceChartComponent implements AfterViewInit {
               // display: false,
               color: '#c4c4c4',
               tickColor: '#c4c4c4'
-
             },
             ticks: {
               // display: false,
               color: '#c4c4c4',
+              font: {
+                size: 15,
+              }
             },
             border: {
               display: false,
