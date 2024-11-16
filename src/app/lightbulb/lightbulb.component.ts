@@ -63,7 +63,7 @@ export class LightbulbComponent implements OnInit, OnChanges {
     this.triggerWarningNext = true;
     if (!this.showMsg) {
       this.playWarningMsg();
-    } 
+    }
   }
 
 
@@ -82,10 +82,11 @@ export class LightbulbComponent implements OnInit, OnChanges {
 
   showApplianceMsg() {
     const itemMessagesAudios = this.lightbulbMessageAudio[this.itemToggled.name];
+    const rng = Math.floor(Math.random() * 3) + 1;
 
-    if (!this.showMsg) {
+    if (!this.showMsg && rng === 1) {
       const select = Math.floor(Math.random() * itemMessagesAudios.length);
-      this.msg = itemMessagesAudios[select].msg;  // Set the message text
+      this.msg = itemMessagesAudios[select].msg;  // Set the message texts
       this.showMsg = true;  // Show the message
       itemMessagesAudios[select].audio?.play();
       itemMessagesAudios[select].audio?.addEventListener('ended', () => {
@@ -93,7 +94,7 @@ export class LightbulbComponent implements OnInit, OnChanges {
           this.showMsg = false;  // Hide the message after the duration
         }, this.delayTime);
 
-        if (this.triggerWarningNext) this.playWarningMsg();  
+        if (this.triggerWarningNext) this.playWarningMsg();
       });
     }
   }
